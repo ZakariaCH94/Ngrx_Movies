@@ -1,0 +1,14 @@
+<mat-toolbar color="primary">
+  <span class="fill-remaining-space">
+    <button #r="matMenuTrigger" mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon (mouseover)="open(r)">menu</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu" [overlapTrigger]="false">
+      <button mat-menu-item *ngFor="let m of menus" (click)="onMenuItem(m)">
+        <mat-icon>{{ m.icone }}</mat-icon>
+        {{ m.title }}
+      </button>
+    </mat-menu>
+  </span>
+  <span class="fill-remaining-space">Books and Movies library </span>
+</mat-toolbar>

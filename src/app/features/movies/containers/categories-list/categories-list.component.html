@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-md-2 col-md-offset-4">
+    <app-search
+      [searchValue]="searchValue$ | async"
+      (search)="search($event)"
+    ></app-search>
+  </div>
+</div>
+<ng-container class="row" *ngIf="!(loading$ | async); else loader">
+  <div class="col-md-offset-0">
+    <app-category
+      (goToMovies)="goToMovies($event)"
+      *ngFor="
+        let category of categories$ | async | titleCategoriesFilter: searchValue
+      "
+      [category]="category"
+    ></app-category>
+  </div>
+</ng-container>
+
+<ng-template class="row" #loader>
+  <div class="col-md-2 col-md-offset-4">
+    <mat-icon
+      ><mat-spinner color="primary" diameter="80"> </mat-spinner
+    ></mat-icon>
+  </div>
+</ng-template>

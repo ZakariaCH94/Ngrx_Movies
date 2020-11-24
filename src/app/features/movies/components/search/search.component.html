@@ -1,0 +1,10 @@
+<mat-form-field appearance="legacy">
+  <mat-label>search category</mat-label>
+  <input
+    (keyup)="search.emit($event.target.value)"
+    matInput
+    placeholder="by title"
+    [value]="searchValue"
+  />
+  <mat-icon matSuffix>search</mat-icon>
+</mat-form-field>

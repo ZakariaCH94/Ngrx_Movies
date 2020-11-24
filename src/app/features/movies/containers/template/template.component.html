@@ -1,0 +1,29 @@
+<div id="wrapper">
+  <!-- Navigation -->
+  <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+  <div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul class="nav navbar-nav side-nav">
+      <li>
+        <a routerLink="categories"
+          >Categories movies<mat-icon>local_movies</mat-icon></a
+        >
+      </li>
+    </ul>
+  </div>
+  <!-- /.navbar-collapse -->
+
+  <div id="page-wrapper">
+    <div class="container-fluid">
+      <!-- Page Heading -->
+      <div class="row">
+        <div class="col-sm-12 col-md-12">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </div>
+  <!-- /#page-wrapper -->
+</div>
+<!-- /#wrapper -->

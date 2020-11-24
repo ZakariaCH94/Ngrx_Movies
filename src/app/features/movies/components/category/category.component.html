@@ -1,0 +1,24 @@
+<div class="col-md-3">
+  <mat-card>
+    <mat-card-title-group>
+      <mat-card-title class="text-xl push-none">{{
+        category.title
+      }}</mat-card-title>
+      <mat-card-subtitle class="push-none">{{
+        category.emoji
+      }}</mat-card-subtitle>
+      <mat-card-subtitle class="push-none">
+        {{ category.emojiStyle }}
+      </mat-card-subtitle>
+    </mat-card-title-group>
+    <mat-card-actions>
+      <button
+        mat-raised-button
+        (click)="goToMovies.emit(category.id)"
+        color="primary"
+      >
+        Got to movies
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
