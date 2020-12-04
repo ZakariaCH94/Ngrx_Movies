@@ -4,14 +4,16 @@ import { Movie } from "../models";
   name: "titleMoviesFilter",
 })
 export class TitleMoviesFilterPipe implements PipeTransform {
-  transform(movies: Movie[], searchValue: string): unknown {
+  movies: Movie[] = [];
+  transform(movies: Movie[], searchValue: string): Movie[] {
     if (!searchValue) return movies;
     /**
      * filtrer les movies par titres
      */
-    return movies.filter(
+    this.movies = movies.filter(
       (movie) =>
         movie.title.toLowerCase().indexOf(searchValue.toLowerCase()) > -1
     );
+    return this.movies;
   }
 }

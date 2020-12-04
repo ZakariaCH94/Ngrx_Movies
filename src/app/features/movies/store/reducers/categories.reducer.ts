@@ -21,40 +21,23 @@ const initSearchState: searchState = {
   serachValue: "",
 };
 
-const newStateCategories = (
-  state: categoriesState,
-  newData: categoriesState
-) => {
-  return Object.assign({}, state, newData);
-};
-
 const newStateSearch = (state: searchState, newData: searchState) => {
   return Object.assign({}, state, newData);
 };
 
 const reducerCategories = createReducer(
   initCategoriesState,
-  on(categoriesAction.GET_CATEGORIES, (state) =>
-    newStateCategories(state, {
-      categories: state.categories,
-      loading: true,
-      error: state.error,
-    })
-  ),
-  on(categoriesAction.GET_CATEGORIES_SUCCESS, (state, { categories }) =>
-    newStateCategories(state, {
-      categories: categories,
-      loading: false,
-      error: state.error,
-    })
-  ),
-  on(categoriesAction.GET_CATEGORIES_ERROR, (state, { error }) =>
-    newStateCategories(state, {
-      categories: state.categories,
-      loading: false,
-      error: error,
-    })
-  )
+  on(categoriesAction.GET_CATEGORIES, (state) => ({ ...state, loading: true })),
+  on(categoriesAction.GET_CATEGORIES_SUCCESS, (state, { categories }) => ({
+    ...state,
+    categories: categories,
+    loading: false,
+  })),
+  on(categoriesAction.GET_CATEGORIES_ERROR, (state, { error }) => ({
+    ...state,
+    loading: false,
+    error: error,
+  }))
 );
 
 const reducerSearch = createReducer(

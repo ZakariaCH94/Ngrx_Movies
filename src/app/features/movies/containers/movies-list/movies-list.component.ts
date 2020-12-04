@@ -1,11 +1,15 @@
 import { Component, OnInit } from "@angular/core";
+import { Router, NavigationEnd } from "@angular/router";
+
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
 import { ElementsState } from "../../store/reducers";
 import * as moviesSelectors from "../../store/selectors";
 import { Movie } from "../../models";
-import * as moviesActionsType from "../../store/actions";
+import * as actionsType from "../../store/actions";
 import { of } from "rxjs";
+import { filter } from "rxjs/operators";
+
 @Component({
   selector: "app-movies-list",
   templateUrl: "./movies-list.component.html",
@@ -13,17 +17,27 @@ import { of } from "rxjs";
 })
 export class MoviesListComponent implements OnInit {
   movies$: Observable<Movie[]>;
-  loading$: Observable<boolean>;
+  loadingMovies$: Observable<boolean>;
   error$: Observable<string>;
   searchValue: string;
   searchValue$: Observable<string> = of("");
-  constructor(private store: Store<ElementsState>) {}
+  constructor(private store: Store<ElementsState>, private router: Router) {
+    this.router.events
+      .pipe(filter((rs): rs is NavigationEnd => rs instanceof NavigationEnd))
+      .subscribe((event) => {
+        if (event.id === 1 && event.url === event.urlAfterRedirects) {
+          this.store.dispatch(actionsType.GET_MOVIES());
+          this.store.dispatch(actionsType.GET_CATEGORIES());
+        }
+      });
+  }
 
   ngOnInit(): void {
-    this.store.dispatch(moviesActionsType.GET_MOVIES_BY_CATEGORY_ID());
+    this.movies$ = this.store.select<Movie[]>(
+      moviesSelectors.getSelectedMoviesByIdCategory
+    );
 
-    this.movies$ = this.store.select<Movie[]>(moviesSelectors.getAllMovies);
-    this.loading$ = this.store.select<boolean>(
+    this.loadingMovies$ = this.store.select<boolean>(
       moviesSelectors.getIsMoviesLoading
     );
     this.error$ = this.store.select<string>(

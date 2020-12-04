@@ -1,18 +1,24 @@
-<mat-card class="example-card">
-  <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>{{ movie.title }}</mat-card-title>
-    <mat-card-subtitle>{{ movie.RecordedYear }}</mat-card-subtitle>
-    <mat-card-subtitle>
-      <span>Language:</span> {{ movie.language }}</mat-card-subtitle
-    >
-  </mat-card-header>
-  <mat-card-content>
-    <span>Special mention:</span>
-    <p>
-      {{
-        movie.specialMention.firstName + " - " + movie.specialMention.lastName
-      }}
-    </p>
-  </mat-card-content>
-</mat-card>
+<div class="col-md-3 panel">
+  <mat-card class="example-card">
+    <mat-card-header>
+      <div
+        mat-card-avatar
+        class="example-header-image"
+        [ngStyle]="{ 'background-image': 'url(' + movie.image + ')' }"
+      ></div>
+
+      <mat-card-title>{{ movie.title }}</mat-card-title>
+      <mat-card-subtitle>{{ movie.RecordedYear }}</mat-card-subtitle>
+      <mat-card-subtitle> {{ movie.language }}</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <span>Special mention:</span>
+      <p>
+        {{
+          movie.specialMention.firstName + " - " + movie.specialMention.lastName
+        }}
+      </p>
+    </mat-card-content>
+  </mat-card>
+</div>

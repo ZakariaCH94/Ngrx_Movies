@@ -2,7 +2,7 @@ import { createSelector } from "@ngrx/store";
 import { ElementsState } from "../reducers";
 import * as moviesReducer from "../reducers/movies.reducer";
 import { getElementsState } from "./elements.selector";
-
+import { getRouter } from "../../router-store/router.state";
 const getMoviesState = createSelector(
   getElementsState,
   (state: ElementsState) => state.movies
@@ -13,12 +13,26 @@ export const getAllMovies = createSelector(
   moviesReducer.getAllMovies
 );
 
+export const getSelectedMoviesByIdCategory = createSelector(
+  getRouter,
+  getAllMovies,
+  (router, movies) => {
+    return movies.reduce((data, movie) => {
+      if (movie.categoryId == router.state.params["categoryId"]) {
+        data.push(movie);
+      }
+
+      return data;
+    }, []);
+  }
+);
+
 export const getIsMoviesLoading = createSelector(
   getMoviesState,
-  moviesReducer.getIsMoviesLoading
+  moviesReducer.getIsLoading
 );
 
 export const getIsErrorLoadMovies = createSelector(
   getMoviesState,
-  moviesReducer.getIsErrorLoadMovies
+  moviesReducer.getIsErrorLoad
 );

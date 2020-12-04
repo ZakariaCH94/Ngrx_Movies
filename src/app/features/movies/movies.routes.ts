@@ -1,6 +1,6 @@
 import { Routes } from "@angular/router";
 import {
-  TemplateComponent,
+  AddMovieComponent,
   CategoriesListComponent,
   MoviesListComponent,
 } from "./containers";
@@ -8,16 +8,14 @@ import {
 export const routes: Routes = [
   {
     path: "",
-    component: TemplateComponent,
-    children: [
-      {
-        path: "categories",
-        component: CategoriesListComponent,
-      },
-      {
-        path: "category/:categoryId",
-        component: MoviesListComponent,
-      },
-    ],
+    component: CategoriesListComponent,
+  },
+  {
+    path: "category/:categoryId",
+    component: MoviesListComponent,
+  },
+  {
+    path: "addMovie",
+    component: AddMovieComponent,
   },
 ];

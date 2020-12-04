@@ -17,7 +17,6 @@ import { Category } from "../../models";
 export class CategoryComponent implements OnInit {
   @Input() category: Category;
   @Output() goToMovies = new EventEmitter<number>();
-
   constructor() {}
 
   ngOnInit(): void {}

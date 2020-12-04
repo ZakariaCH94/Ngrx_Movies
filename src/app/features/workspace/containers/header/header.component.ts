@@ -8,11 +8,11 @@ import { Router } from "@angular/router";
 })
 export class HeaderComponent implements OnInit {
   public menus = [
-    {
+    /*   {
       title: "Books",
       url: "books",
       icone: "book",
-    },
+    }, */
     {
       title: "Movies",
       url: "movies",

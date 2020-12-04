@@ -6,7 +6,6 @@ export interface Movie {
   title: string;
   language: string;
   RecordedYear: number;
-  length: number;
-  picto: string;
+  image: string;
   specialMention: Person;
 }

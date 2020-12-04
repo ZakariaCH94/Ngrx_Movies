@@ -1,0 +1,13 @@
+<mat-form-field
+  [formGroup]="registerMovieForm"
+  class="form-element"
+  appearance="fill"
+>
+  <mat-label>{{ label }}</mat-label>
+  <mat-select [formControlName]="control">
+    <mat-option *ngFor="let option of options" [value]="option.id">{{
+      option.title
+    }}</mat-option>
+  </mat-select>
+  <mat-error *ngIf="!valid && touched">{{ titleAlert }}</mat-error>
+</mat-form-field>

@@ -1,0 +1,18 @@
+<app-wrapper>
+  <div class="row color" *ngIf="!(loadingCategories$ | async); else loader">
+    <div class="col-md-offset-2">
+      <ng-container>
+        <app-form-add-movie
+          [optionsCategories]="optionsCategories$ | async"
+        ></app-form-add-movie>
+      </ng-container>
+    </div>
+  </div>
+  <div class="row">
+    <ng-template #loader>
+      <mat-icon class="col-md-2 col-md-offset-4"
+        ><mat-spinner color="primary" diameter="80"> </mat-spinner
+      ></mat-icon>
+    </ng-template>
+  </div>
+</app-wrapper>

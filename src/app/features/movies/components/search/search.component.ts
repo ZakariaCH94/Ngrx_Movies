@@ -16,6 +16,8 @@ import {
 export class SearchComponent implements OnInit {
   @Output() search = new EventEmitter<string>();
   @Input() searchValue: string = "";
+  @Input() searchName: string;
+
   constructor() {}
 
   ngOnInit(): void {}

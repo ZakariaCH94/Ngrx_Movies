@@ -1,29 +1,35 @@
-<div class="row">
-  <div class="col-md-2 col-md-offset-4">
-    <app-search
-      [searchValue]="searchValue$ | async"
-      (search)="search($event)"
-    ></app-search>
-  </div>
-</div>
-<ng-container>
-  {{ error$ | async }}
-</ng-container>
-<ng-container class="row" *ngIf="!(loading$ | async); else loader">
-  <div class="col-md-offset-0">
-    <div class="movies-wrapper">
-      <app-movie
-        *ngFor="let movie of movies$ | async | titleMoviesFilter: searchValue"
-        [movie]="movie"
-      ></app-movie>
+<app-wrapper>
+  <div class="row">
+    <div class="col-md-2 col-md-offset-4">
+      <app-search
+        [searchName]="'search movie'"
+        [searchValue]="searchValue$ | async"
+        (search)="search($event)"
+      ></app-search>
     </div>
   </div>
-</ng-container>
-
-<ng-template class="row" #loader>
-  <div class="col-md-2 col-md-offset-4">
-    <mat-icon
-      ><mat-spinner color="primary" diameter="80"> </mat-spinner
-    ></mat-icon>
+  <div class="row" *ngIf="movies$ | async as movies">
+    <div class="col-md-offset-0" *ngIf="!(loadingMovies$ | async); else loader">
+      <ng-container *ngIf="movies.length > 0; else noMovie">
+        <app-movie
+          *ngFor="let movie of movies | titleMoviesFilter: searchValue"
+          [movie]="movie"
+        ></app-movie>
+      </ng-container>
+    </div>
   </div>
-</ng-template>
+  <div class="row">
+    <ng-template #loader>
+      <mat-icon class="col-md-2 col-md-offset-4"
+        ><mat-spinner color="primary" diameter="80"> </mat-spinner
+      ></mat-icon>
+    </ng-template>
+  </div>
+  <div class="row">
+    <ng-template #noMovie>
+      <div class="col-md-2 col-md-offset-4">
+        <p>No movie is associated with this category</p>
+      </div>
+    </ng-template>
+  </div>
+</app-wrapper>

@@ -1,5 +1,5 @@
 <mat-form-field appearance="legacy">
-  <mat-label>search category</mat-label>
+  <mat-label>{{ searchName }}</mat-label>
   <input
     (keyup)="search.emit($event.target.value)"
     matInput
