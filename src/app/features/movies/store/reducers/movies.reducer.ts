@@ -5,15 +5,15 @@ import * as moviesAction from "../actions";
 export interface moviesState {
   movies: Movie[];
   loading: boolean;
+  success: string;
   error: string;
-  reply: string;
 }
 
 const initMoviesState: moviesState = {
   movies: [],
-  loading: true,
+  loading: false,
   error: "",
-  reply: "",
+  success: "",
 };
 
 const reducerMovies = createReducer(
@@ -32,16 +32,16 @@ const reducerMovies = createReducer(
     loading: false,
     error: error,
   })),
-  on(moviesAction.ADD_MOVIES, (state, { movie, categoryId }) => ({
+  on(moviesAction.ADD_MOVIE, (state, { movie }) => ({
     ...state,
     loading: true,
   })),
-  on(moviesAction.ADD_MOVIES_SUCCESS, (state, { reply }) => ({
+  on(moviesAction.ADD_MOVIE_SUCCESS, (state, { reply }) => ({
     ...state,
-    reply: reply,
+    success: reply,
     loading: false,
   })),
-  on(moviesAction.GET_MOVIES_ERROR, (state, { error }) => ({
+  on(moviesAction.ADD_MOVIE_ERROR, (state, { error }) => ({
     ...state,
     loading: false,
     error: error,
@@ -55,6 +55,6 @@ export function moviesReducer(state: moviesState | undefined, action: Action) {
 export const getAllMovies = (state: moviesState): Movie[] => state.movies;
 
 export const getIsLoading = (state: moviesState): boolean => state.loading;
-export const getIsErrorLoad = (state: moviesState): string => state.error;
+export const getError = (state: moviesState): string => state.error;
 
-export const getReplyAddMovie = (state: moviesState): string => state.reply;
+export const getSuccess = (state: moviesState): string => state.success;

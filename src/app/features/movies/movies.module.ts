@@ -35,8 +35,9 @@ import { CustomRouterStateSerializer } from "./router-store";
 import { fakeBackendProvider } from "./mocks";
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { WrapperComponent } from './components/wrapper/wrapper.component';
-
+import { WrapperComponent } from "./components/wrapper/wrapper.component";
+import { MatProgressButtonsModule } from "mat-progress-buttons";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 @NgModule({
   declarations: [
     TemplateComponent,
@@ -68,6 +69,8 @@ import { WrapperComponent } from './components/wrapper/wrapper.component';
     MatProgressSpinnerModule,
     MatButtonModule,
     MatToolbarModule,
+    MatProgressButtonsModule,
+    MatSnackBarModule,
     StoreModule.forRoot({}),
     StoreModule.forFeature("elements", reducers),
     StoreModule.forFeature("router", routerReducers),

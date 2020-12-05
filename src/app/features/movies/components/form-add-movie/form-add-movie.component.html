@@ -67,15 +67,10 @@
     </mat-form-field>
 
     <div class="form-element">
-      <button
-        mat-raised-button
-        color="primary"
-        type="submit"
-        class="button"
+      <mat-bar-button
+        [options]="barButtonOptions"
         [disabled]="!registerMovieForm.valid"
-      >
-        Submit Form
-      </button>
+      ></mat-bar-button>
     </div>
   </form>
 </div>

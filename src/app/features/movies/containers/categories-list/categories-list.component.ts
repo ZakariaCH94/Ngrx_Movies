@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
 import { ElementsState } from "../../store/reducers";
-import * as categoriesSelectors from "../../store/selectors";
+import * as selectors from "../../store/selectors";
 import { Category } from "../../models";
 import * as actionsType from "../../store/actions";
 import { Router } from "@angular/router";
@@ -25,20 +25,16 @@ export class CategoriesListComponent implements OnInit {
     this.store.dispatch(actionsType.GET_MOVIES());
 
     this.categories$ = this.store.select<Category[]>(
-      categoriesSelectors.getAllCategories
+      selectors.getAllCategories
     );
 
     this.loadingCategories$ = this.store.select<boolean>(
-      categoriesSelectors.getIsCategoriesLoading
+      selectors.getIsCategoriesLoading
     );
 
-    this.loadingMovies$ = this.store.select<boolean>(
-      categoriesSelectors.getIsMoviesLoading
-    );
+    this.loadingMovies$ = this.store.select<boolean>(selectors.getIsLoading);
 
-    this.searchValue$ = this.store.select<string>(
-      categoriesSelectors.getSearchValue
-    );
+    this.searchValue$ = this.store.select<string>(selectors.getSearchValue);
 
     this.searchValue$.subscribe((searchValue) => {
       this.searchValue = searchValue;

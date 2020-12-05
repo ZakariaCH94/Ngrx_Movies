@@ -19,10 +19,13 @@ export class CategoriesEffect {
       ofType(categoriesActions.GET_CATEGORIES),
       mergeMap(() =>
         this.moviesService.getCategories().pipe(
-          map((categories: Category[]) =>
-            categoriesActions.GET_CATEGORIES_SUCCESS({
-              categories: categories,
-            })
+          map(
+            (categories: Category[]) => (
+              console.log(categories),
+              categoriesActions.GET_CATEGORIES_SUCCESS({
+                categories: categories,
+              })
+            )
           ),
           catchError((err) =>
             of(categoriesActions.GET_CATEGORIES_ERROR({ error: err }))

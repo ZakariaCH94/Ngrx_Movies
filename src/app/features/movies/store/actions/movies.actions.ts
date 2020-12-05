@@ -13,17 +13,17 @@ export const GET_MOVIES_ERROR = createAction(
   props<{ error: string }>()
 );
 
-export const ADD_MOVIES = createAction(
-  "[Movie] Add_Movies_success",
-  props<{ movie: Movie; categoryId: number }>()
+export const ADD_MOVIE = createAction(
+  "[Movie] Add_Movie",
+  props<{ movie: Movie }>()
 );
 
-export const ADD_MOVIES_SUCCESS = createAction(
-  "[Movie] Add_Movies_success",
+export const ADD_MOVIE_SUCCESS = createAction(
+  "[Movie] Add_Movie_success",
   props<{ reply: string }>()
 );
 
-export const Add_MOVIES_ERROR = createAction(
-  "[Movie] Get_Movies_error",
+export const ADD_MOVIE_ERROR = createAction(
+  "[Movie] Add_Movie_error",
   props<{ error: string }>()
 );

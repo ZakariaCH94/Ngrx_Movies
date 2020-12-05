@@ -27,12 +27,13 @@ export const getSelectedMoviesByIdCategory = createSelector(
   }
 );
 
-export const getIsMoviesLoading = createSelector(
+export const getIsLoading = createSelector(
   getMoviesState,
   moviesReducer.getIsLoading
 );
 
-export const getIsErrorLoadMovies = createSelector(
+export const getError = createSelector(getMoviesState, moviesReducer.getError);
+export const getSuccess = createSelector(
   getMoviesState,
-  moviesReducer.getIsErrorLoad
+  moviesReducer.getSuccess
 );

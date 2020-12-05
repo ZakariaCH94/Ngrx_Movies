@@ -5,7 +5,7 @@ export interface Movie {
   categoryId: number;
   title: string;
   language: string;
-  RecordedYear: number;
+  recordedYear: number;
   image: string;
   specialMention: Person;
 }

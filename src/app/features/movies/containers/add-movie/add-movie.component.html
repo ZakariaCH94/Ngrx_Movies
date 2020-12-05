@@ -4,6 +4,8 @@
       <ng-container>
         <app-form-add-movie
           [optionsCategories]="optionsCategories$ | async"
+          (addMovie)="OnAddMovie($event)"
+          [loadingAddMovie]="loadingAddMovie$ | async"
         ></app-form-add-movie>
       </ng-container>
     </div>

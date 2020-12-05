@@ -18,7 +18,6 @@ import { filter } from "rxjs/operators";
 export class MoviesListComponent implements OnInit {
   movies$: Observable<Movie[]>;
   loadingMovies$: Observable<boolean>;
-  error$: Observable<string>;
   searchValue: string;
   searchValue$: Observable<string> = of("");
   constructor(private store: Store<ElementsState>, private router: Router) {
@@ -38,10 +37,7 @@ export class MoviesListComponent implements OnInit {
     );
 
     this.loadingMovies$ = this.store.select<boolean>(
-      moviesSelectors.getIsMoviesLoading
-    );
-    this.error$ = this.store.select<string>(
-      moviesSelectors.getIsErrorLoadMovies
+      moviesSelectors.getIsLoading
     );
   }
 
