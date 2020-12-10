@@ -1,0 +1,20 @@
+.header {
+  padding: 10px 0;
+  background: #211424;
+  border-top: 5px solid #a829c3;
+  box-shadow: 0 2px 5px 0 #fc9b2d;
+  margin-top: 15px;
+}
+
+.header .logo {
+  box-shadow: 0 2px 5px 0 #fc9b2d, 0 2px 10px 0 #fc9b2d;
+  height: 60px;
+  border-radius: 50%;
+}
+.header .content .name {
+  color: #fc9b2d;
+  font-size: 30px;
+  margin-bottom: 5px;
+  margin-left: 15px;
+  margin-top: 15px;
+}

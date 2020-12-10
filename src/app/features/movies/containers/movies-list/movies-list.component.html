@@ -1,6 +1,6 @@
-<app-wrapper>
+<app-template>
   <div class="row">
-    <div class="col-md-2 col-md-offset-4">
+    <div class="col-md-2 col-centered">
       <app-search
         [searchName]="'search movie'"
         [searchValue]="searchValue$ | async"
@@ -9,27 +9,40 @@
     </div>
   </div>
   <div class="row" *ngIf="movies$ | async as movies">
-    <div class="col-md-offset-0" *ngIf="!(loadingMovies$ | async); else loader">
+    <div
+      *ngIf="
+        !(loadingCategories$ | async) && !(loadingMovies$ | async);
+        else loader
+      "
+    >
       <ng-container *ngIf="movies.length > 0; else noMovie">
         <app-movie
-          *ngFor="let movie of movies | titleMoviesFilter: searchValue"
+          *ngFor="let movie of obs | async | titleMoviesFilter: searchValue"
           [movie]="movie"
+          (updateMovie)="onUpdateMovie($event)"
+          (deleteMovie)="onDeleteMovie($event)"
         ></app-movie>
       </ng-container>
     </div>
   </div>
   <div class="row">
+    <mat-paginator [pageSizeOptions]="[5, 10, 25]"></mat-paginator>
+  </div>
+  <div class="row">
     <ng-template #loader>
-      <mat-icon class="col-md-2 col-md-offset-4"
-        ><mat-spinner color="primary" diameter="80"> </mat-spinner
-      ></mat-icon>
+      <div class="col-md-2 col-centered">
+        <mat-spinner color="primary" diameter="80"> </mat-spinner>
+      </div>
     </ng-template>
   </div>
   <div class="row">
     <ng-template #noMovie>
-      <div class="col-md-2 col-md-offset-4">
+      <div class="col-md-2 col-centered">
         <p>No movie is associated with this category</p>
       </div>
     </ng-template>
   </div>
-</app-wrapper>
+  <div class="row" *ngIf="loadingAction$ | async">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+</app-template>

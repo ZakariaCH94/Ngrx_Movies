@@ -1,5 +1,5 @@
-<div class="col-md-3 panel">
-  <mat-card class="example-card">
+<div class="col-md-4 panel">
+  <mat-card>
     <mat-card-header>
       <div
         mat-card-avatar
@@ -20,5 +20,18 @@
         }}
       </p>
     </mat-card-content>
+    <mat-card-actions>
+      <button
+        mat-raised-button
+        (click)="updateMovie.emit(movie.id)"
+        color="primary"
+      >
+        Update
+      </button>
+      <button mat-raised-button (click)="delete(movie.id)" color="accent">
+        Delete
+      </button>
+      <button mat-raised-button color="primary">add</button>
+    </mat-card-actions>
   </mat-card>
 </div>

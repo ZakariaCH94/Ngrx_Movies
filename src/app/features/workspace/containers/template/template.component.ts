@@ -1,15 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
+export interface Panel {
+  name: string;
+  link: string;
+  image: string;
+}
 @Component({
-  selector: 'app-template',
-  templateUrl: './template.component.html',
-  styleUrls: ['./template.component.css']
+  selector: "app-template",
+  templateUrl: "./template.component.html",
+  styleUrls: ["./template.component.css"],
 })
 export class TemplateComponent implements OnInit {
+  panels: Panel[] = [
+    {
+      name: "Movies module",
+      link: "movies",
+      image: "https://upload.wikimedia.org/wikipedia/en/b/b4/At-the-movies.jpg",
+    },
+  ];
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

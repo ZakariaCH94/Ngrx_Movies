@@ -1,51 +1,100 @@
 import { Action, createReducer, on } from "@ngrx/store";
 import { Movie } from "../../models";
 import * as moviesAction from "../actions";
+import * as _ from "lodash";
 
 export interface moviesState {
   movies: Movie[];
-  loading: boolean;
+  currentMovie: Movie;
+  movieId: number;
+  loadingAllMovies: boolean;
+  loadingActionMovie: boolean;
   success: string;
   error: string;
 }
 
 const initMoviesState: moviesState = {
   movies: [],
-  loading: false,
+  currentMovie: null,
+  movieId: null,
+  loadingAllMovies: false,
+  loadingActionMovie: false,
   error: "",
   success: "",
 };
 
 const reducerMovies = createReducer(
   initMoviesState,
-  on(moviesAction.GET_MOVIES, (state) => ({
-    ...state,
-    loading: true,
-  })),
-  on(moviesAction.GET_MOVIES_SUCCESS, (state, { movies }) => ({
-    ...state,
-    movies: movies,
-    loading: false,
-  })),
-  on(moviesAction.GET_MOVIES_ERROR, (state, { error }) => ({
-    ...state,
-    loading: false,
-    error: error,
-  })),
-  on(moviesAction.ADD_MOVIE, (state, { movie }) => ({
-    ...state,
-    loading: true,
-  })),
-  on(moviesAction.ADD_MOVIE_SUCCESS, (state, { reply }) => ({
-    ...state,
-    success: reply,
-    loading: false,
-  })),
-  on(moviesAction.ADD_MOVIE_ERROR, (state, { error }) => ({
-    ...state,
-    loading: false,
-    error: error,
-  }))
+  on(moviesAction.GET_MOVIES, (state) => {
+    return {
+      ...state,
+      loadingAllMovies: true,
+    };
+  }),
+  on(moviesAction.GET_MOVIES_SUCCESS, (state, { movies }) => {
+    return {
+      ...state,
+      movies: movies,
+      loadingAllMovies: false,
+    };
+  }),
+  on(moviesAction.GET_MOVIES_ERROR, (state, { error }) => {
+    return {
+      ...state,
+      loadingAllMovies: false,
+      error: error,
+    };
+  }),
+  on(moviesAction.ADD_MOVIE, (state, { movie }) => {
+    return { ...state, currentMovie: movie, loadingActionMovie: true };
+  }),
+  on(moviesAction.ADD_MOVIE_SUCCESS, (state, { movie }) => {
+    const currentMovies: Movie[] = [...state.movies];
+
+    currentMovies.push(movie);
+    return { ...state, movies: currentMovies, loadingActionMovie: false };
+  }),
+  on(moviesAction.ADD_MOVIE_ERROR, (state, { error }) => {
+    return { ...state, loadingActionMovie: false, error: error };
+  }),
+  on(moviesAction.UPDATE_MOVIE, (state, { movie }) => {
+    return { ...state, currentMovie: movie, loadingActionMovie: true };
+  }),
+  on(moviesAction.UPDATE_MOVIE_SUCCESS, (state, { reply }) => {
+    const currentMovies: Movie[] = state.movies.map((movie) => {
+      if (movie.id === state.currentMovie.id) {
+        movie = state.currentMovie;
+      }
+      return movie;
+    });
+
+    return {
+      ...state,
+      movies: currentMovies,
+      success: reply,
+      loadingActionMovie: false,
+    };
+  }),
+  on(moviesAction.UPDATE_MOVIE_ERROR, (state, { error }) => {
+    return { ...state, loadingActionMovie: false, error: error };
+  }),
+  on(moviesAction.DELETE_MOVIE, (state, { movieId }) => {
+    return { ...state, movieId: movieId, loadingActionMovie: true };
+  }),
+  on(moviesAction.DELETE_MOVIE_SUCCESS, (state, { reply }) => {
+    const currentMovies: Movie[] = state.movies.filter(
+      (movie) => movie.id !== state.movieId
+    );
+    return {
+      ...state,
+      movies: currentMovies,
+      success: reply,
+      loadingActionMovie: false,
+    };
+  }),
+  on(moviesAction.DELETE_MOVIE_ERROR, (state, { error }) => {
+    return { ...state, loadingActionMovie: false, error: error };
+  })
 );
 
 export function moviesReducer(state: moviesState | undefined, action: Action) {
@@ -54,7 +103,11 @@ export function moviesReducer(state: moviesState | undefined, action: Action) {
 
 export const getAllMovies = (state: moviesState): Movie[] => state.movies;
 
-export const getIsLoading = (state: moviesState): boolean => state.loading;
+export const getIsLoadingAllMovies = (state: moviesState): boolean =>
+  state.loadingAllMovies;
+export const getIsLoadingActionMovie = (state: moviesState): boolean =>
+  state.loadingActionMovie;
+
 export const getError = (state: moviesState): string => state.error;
 
 export const getSuccess = (state: moviesState): string => state.success;

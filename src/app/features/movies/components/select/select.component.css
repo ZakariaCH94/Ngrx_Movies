@@ -1,4 +1,14 @@
 .form-element {
-  padding: 5px 0px 10px 2px;
+  padding: 0px;
   width: 75%;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  color: rgb(79, 10, 206);
+  border: 8px;
+}
+/* Font color */
+input.mat-input-element {
+  color: rgb(10, 3, 17);
+  font: bold;
 }

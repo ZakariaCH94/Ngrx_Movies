@@ -1,0 +1,85 @@
+<div class="container-fluid">
+  <mat-toolbar class="form-element">
+    <span class="fill-remaining-space" *ngIf="action == 'add movie'"
+      >Add your movie</span
+    >
+    <span class="fill-remaining-space" *ngIf="action == 'update movie'"
+      >update your movie</span
+    >
+  </mat-toolbar>
+  <form [formGroup]="registerMovieForm" (ngSubmit)="onSubmit()" class="form">
+    <mat-form-field class="form-element" appearance="outline">
+      <input matInput type="text" placeholder="Title" formControlName="title" />
+      <mat-error *ngIf="!f.title.valid && f.title.touched">
+        This field is required and must not exceed 35 characters</mat-error
+      >
+    </mat-form-field>
+    <app-select
+      [label]="labelLanguage"
+      [options]="optionsLanguage"
+      [valid]="f.language.valid"
+      [touched]="f.language.touched"
+      [registerMovieForm]="registerMovieForm"
+      [control]="'language'"
+      [titleAlert]="titleAlert"
+    ></app-select>
+    <app-select
+      [label]="labelYear"
+      [options]="optionsYear"
+      [valid]="f.recordedYear.valid"
+      [touched]="f.recordedYear.touched"
+      [registerMovieForm]="registerMovieForm"
+      [control]="'recordedYear'"
+      [titleAlert]="titleAlert"
+    ></app-select>
+    <app-select-tab-object
+      [label]="labelCategory"
+      [options]="optionsCategories"
+      [valid]="f.category.valid"
+      [touched]="f.category.touched"
+      [registerMovieForm]="registerMovieForm"
+      [control]="'category'"
+      [titleAlert]="titleAlert"
+    ></app-select-tab-object>
+
+    <mat-form-field class="form-element" appearance="outline">
+      <input
+        matInput
+        type="text"
+        placeholder="Link image"
+        formControlName="image"
+      />
+      <mat-hint>Link of image movie</mat-hint>
+      <mat-error *ngIf="!f.image.valid && f.image.touched"> </mat-error>
+    </mat-form-field>
+    <mat-form-field class="form-element" appearance="outline">
+      <input
+        matInput
+        type="text"
+        placeholder="Last name héro "
+        formControlName="heroLastName"
+      />
+
+      <mat-error *ngIf="!f.heroLastName.valid && f.heroLastName.touched">
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="form-element" appearance="outline">
+      <input
+        matInput
+        type="text"
+        placeholder="First name héro "
+        formControlName="heroFirstName"
+      />
+
+      <mat-error *ngIf="!f.heroFirstName.valid && f.heroFirstName.touched">
+      </mat-error>
+    </mat-form-field>
+
+    <div class="form-element">
+      <mat-bar-button
+        [options]="barButtonOptions"
+        [disabled]="!registerMovieForm.valid"
+      ></mat-bar-button>
+    </div>
+  </form>
+</div>

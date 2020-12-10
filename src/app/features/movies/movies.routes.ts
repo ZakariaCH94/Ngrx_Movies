@@ -3,6 +3,7 @@ import {
   AddMovieComponent,
   CategoriesListComponent,
   MoviesListComponent,
+  UpdateMovieComponent,
 } from "./containers";
 
 export const routes: Routes = [
@@ -17,5 +18,9 @@ export const routes: Routes = [
   {
     path: "addMovie",
     component: AddMovieComponent,
+  },
+  {
+    path: "movie/:movieId",
+    component: UpdateMovieComponent,
   },
 ];

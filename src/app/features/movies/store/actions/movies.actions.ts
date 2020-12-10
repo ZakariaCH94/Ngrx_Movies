@@ -20,10 +20,40 @@ export const ADD_MOVIE = createAction(
 
 export const ADD_MOVIE_SUCCESS = createAction(
   "[Movie] Add_Movie_success",
-  props<{ reply: string }>()
+  props<{ movie: Movie }>()
 );
 
 export const ADD_MOVIE_ERROR = createAction(
   "[Movie] Add_Movie_error",
+  props<{ error: string }>()
+);
+
+export const UPDATE_MOVIE = createAction(
+  "[Movie] Update_Movie",
+  props<{ movie: Movie }>()
+);
+
+export const UPDATE_MOVIE_SUCCESS = createAction(
+  "[Movie] Update_Movie_success",
+  props<{ reply: string }>()
+);
+
+export const UPDATE_MOVIE_ERROR = createAction(
+  "[Movie] Update_Movie_error",
+  props<{ error: string }>()
+);
+
+export const DELETE_MOVIE = createAction(
+  "[Movie] Delete_Movie",
+  props<{ movieId: number }>()
+);
+
+export const DELETE_MOVIE_SUCCESS = createAction(
+  "[Movie] Delete_Movie_success",
+  props<{ reply: string }>()
+);
+
+export const DELETE_MOVIE_ERROR = createAction(
+  "[Movie] Delete_Movie_error",
   props<{ error: string }>()
 );

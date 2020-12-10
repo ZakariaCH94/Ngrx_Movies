@@ -5,6 +5,7 @@ import {
   CategoriesListComponent,
   MoviesListComponent,
   AddMovieComponent,
+  UpdateMovieComponent,
 } from "./containers";
 import { MoviesRoutingModule } from "./movies-routing.module";
 import { MatIconModule } from "@angular/material/icon";
@@ -13,15 +14,23 @@ import { MatInputModule } from "@angular/material/input";
 import { MatCardModule } from "@angular/material/card";
 import { MatButtonModule } from "@angular/material/button";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatProgressBarModule } from "@angular/material/progress-bar";
+import { MatPaginatorModule } from "@angular/material/paginator";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { MatDialogModule } from "@angular/material/dialog";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatSelectModule } from "@angular/material/select";
+import { MatTableModule } from "@angular/material/table";
+import { MatSidenavModule } from "@angular/material/sidenav";
+
 import {
   CategoryComponent,
   MovieComponent,
   SearchComponent,
-  FormAddMovieComponent,
+  FormMovieComponent,
   SelectComponent,
   SelectTabObjectComponent,
+  ConfirmationDialogComponent,
 } from "./components";
 import { MoviesService } from "./services";
 import { reducers } from "./store/reducers";
@@ -35,9 +44,9 @@ import { CustomRouterStateSerializer } from "./router-store";
 import { fakeBackendProvider } from "./mocks";
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { WrapperComponent } from "./components/wrapper/wrapper.component";
 import { MatProgressButtonsModule } from "mat-progress-buttons";
-import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { MediaMatcher } from "@angular/cdk/layout";
+
 @NgModule({
   declarations: [
     TemplateComponent,
@@ -49,11 +58,12 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
     MovieComponent,
     TitleMoviesFilterPipe,
     AddMovieComponent,
-    FormAddMovieComponent,
+    FormMovieComponent,
     SelectComponent,
     SelectComponent,
     SelectTabObjectComponent,
-    WrapperComponent,
+    UpdateMovieComponent,
+    ConfirmationDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -71,6 +81,11 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
     MatToolbarModule,
     MatProgressButtonsModule,
     MatSnackBarModule,
+    MatProgressBarModule,
+    MatDialogModule,
+    MatPaginatorModule,
+    MatTableModule,
+    MatSidenavModule,
     StoreModule.forRoot({}),
     StoreModule.forFeature("elements", reducers),
     StoreModule.forFeature("router", routerReducers),
@@ -80,6 +95,7 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
       serializer: CustomRouterStateSerializer,
     }),
   ],
-  providers: [MoviesService, fakeBackendProvider],
+  providers: [MoviesService, fakeBackendProvider, MediaMatcher],
+  entryComponents: [ConfirmationDialogComponent],
 })
 export class MoviesModule {}

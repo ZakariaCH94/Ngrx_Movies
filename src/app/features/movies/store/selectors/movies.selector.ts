@@ -27,9 +27,22 @@ export const getSelectedMoviesByIdCategory = createSelector(
   }
 );
 
-export const getIsLoading = createSelector(
+export const getMovieById = createSelector(
+  getRouter,
+  getAllMovies,
+  (router, movies) => {
+    return movies.find((movie) => movie.id == router.state.params["movieId"]);
+  }
+);
+
+export const getIsLoadingAllMovies = createSelector(
   getMoviesState,
-  moviesReducer.getIsLoading
+  moviesReducer.getIsLoadingAllMovies
+);
+
+export const getIsLoadingActionMovie = createSelector(
+  getMoviesState,
+  moviesReducer.getIsLoadingActionMovie
 );
 
 export const getError = createSelector(getMoviesState, moviesReducer.getError);

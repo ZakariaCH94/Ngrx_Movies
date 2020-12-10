@@ -32,7 +32,9 @@ export class CategoriesListComponent implements OnInit {
       selectors.getIsCategoriesLoading
     );
 
-    this.loadingMovies$ = this.store.select<boolean>(selectors.getIsLoading);
+    this.loadingMovies$ = this.store.select<boolean>(
+      selectors.getIsLoadingAllMovies
+    );
 
     this.searchValue$ = this.store.select<string>(selectors.getSearchValue);
 
@@ -48,7 +50,7 @@ export class CategoriesListComponent implements OnInit {
     );
   }
 
-  goToMovies(categoryId: number) {
+  onGoToMovies(categoryId: number) {
     this.router.navigate([`movies/category/${categoryId}`]);
   }
 }

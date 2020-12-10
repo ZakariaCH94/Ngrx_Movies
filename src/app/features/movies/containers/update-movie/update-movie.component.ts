@@ -1,37 +1,23 @@
 import { Component, OnInit } from "@angular/core";
-import { ElementsState } from "../../store/reducers";
 import { Router, NavigationEnd } from "@angular/router";
+import { ElementsState } from "../../store/reducers";
 import { Store } from "@ngrx/store";
-import { Observable, Subscription } from "rxjs";
-import { Category, Movie } from "../../models";
-import * as actionsType from "../../store/actions";
-import { filter } from "rxjs/operators";
+import { Observable } from "rxjs";
+import { Movie, Category } from "../../models";
 import * as selectors from "../../store/selectors";
+import { filter } from "rxjs/operators";
+import * as actionsType from "../../store/actions";
 @Component({
-  selector: "app-add-movie",
-  templateUrl: "./add-movie.component.html",
-  styleUrls: ["./add-movie.component.css"],
+  selector: "app-update-movie",
+  templateUrl: "./update-movie.component.html",
+  styleUrls: ["./update-movie.component.css"],
 })
-export class AddMovieComponent implements OnInit {
-  movie: Movie = {
-    id: undefined,
-    categoryId: undefined,
-    title: "",
-    language: "",
-    recordedYear: undefined,
-    image: "",
-    specialMention: {
-      lastName: "",
-      firstName: "",
-    },
-  };
-
-  optionsCategories$: Observable<Category[]>;
+export class UpdateMovieComponent implements OnInit {
+  movie$: Observable<Movie>;
   loadingCategories$: Observable<boolean>;
   loadingMovies$: Observable<boolean>;
-  loadingAddMovie$: Observable<boolean>;
-  success$: Subscription;
-  error$: Subscription;
+  optionsCategories$: Observable<Category[]>;
+  loadingUpdateMovie$: Observable<boolean>;
 
   constructor(private store: Store<ElementsState>, private router: Router) {
     this.router.events
@@ -45,8 +31,13 @@ export class AddMovieComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.movie$ = this.store.select<Movie>(selectors.getMovieById);
+
     this.optionsCategories$ = this.store.select<Category[]>(
       selectors.getAllCategories
+    );
+    this.loadingUpdateMovie$ = this.store.select<boolean>(
+      selectors.getIsLoadingActionMovie
     );
     this.loadingCategories$ = this.store.select<boolean>(
       selectors.getIsCategoriesLoading
@@ -54,11 +45,9 @@ export class AddMovieComponent implements OnInit {
     this.loadingMovies$ = this.store.select<boolean>(
       selectors.getIsLoadingAllMovies
     );
-    this.loadingAddMovie$ = this.store.select<boolean>(
-      selectors.getIsLoadingActionMovie
-    );
   }
+
   OnAddMovie(dataMovie: any) {
-    this.store.dispatch(actionsType.ADD_MOVIE({ movie: dataMovie.movie }));
+    this.store.dispatch(actionsType.UPDATE_MOVIE({ movie: dataMovie.movie }));
   }
 }

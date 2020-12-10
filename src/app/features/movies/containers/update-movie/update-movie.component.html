@@ -10,10 +10,10 @@
       <ng-container>
         <app-form-movie
           [optionsCategories]="optionsCategories$ | async"
-          [movie]="movie"
+          [movie]="movie$ | async"
           (addMovie)="OnAddMovie($event)"
-          [loadingAddMovie]="loadingAddMovie$ | async"
-          [action]="'add movie'"
+          [loadingAddMovie]="loadingUpdateMovie$ | async"
+          [action]="'update movie'"
         ></app-form-movie>
       </ng-container>
     </div>

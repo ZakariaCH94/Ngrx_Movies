@@ -1,21 +1,11 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { HeaderComponent, TemplateComponent } from "./containers";
-import { MatButtonModule } from "@angular/material/button";
-import { MatIconModule } from "@angular/material/icon";
-import { MatMenuModule } from "@angular/material/menu";
-import { MatToolbarModule } from "@angular/material/toolbar";
+import { TemplateComponent } from "./containers";
+import { HeaderComponent, PanelComponent } from "./components";
 import { WorkspaceRoutingModule } from "./workspace-routing.module";
 
 @NgModule({
-  declarations: [HeaderComponent, TemplateComponent],
-  imports: [
-    CommonModule,
-    WorkspaceRoutingModule,
-    MatButtonModule,
-    MatIconModule,
-    MatMenuModule,
-    MatToolbarModule,
-  ],
+  declarations: [TemplateComponent, HeaderComponent, PanelComponent],
+  imports: [CommonModule, WorkspaceRoutingModule],
 })
 export class WorkspaceModule {}

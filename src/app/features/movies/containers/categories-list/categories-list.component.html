@@ -1,6 +1,6 @@
-<app-wrapper>
+<app-template>
   <div class="row">
-    <div class="col-md-2 col-md-offset-4">
+    <div class="col-md-2 col-centered">
       <app-search
         [searchName]="'search category'"
         [searchValue]="searchValue$ | async"
@@ -9,28 +9,24 @@
     </div>
   </div>
   <div class="row" *ngIf="categories$ | async as categories">
-    <div class="col-md-offset-0">
-      <ng-container
-        *ngIf="
-          !(loadingCategories$ | async) && !(loadingMovies$ | async);
-          else loader
-        "
-      >
-        <app-category
-          (goToMovies)="goToMovies($event)"
-          *ngFor="
-            let category of categories | titleCategoriesFilter: searchValue
-          "
-          [category]="category"
-        ></app-category>
-      </ng-container>
-    </div>
+    <ng-container
+      *ngIf="
+        !(loadingCategories$ | async) && !(loadingMovies$ | async);
+        else loader
+      "
+    >
+      <app-category
+        (goToMovies)="onGoToMovies($event)"
+        *ngFor="let category of categories | titleCategoriesFilter: searchValue"
+        [category]="category"
+      ></app-category>
+    </ng-container>
   </div>
   <div class="row">
     <ng-template #loader>
-      <mat-icon class="col-md-2 col-md-offset-4"
-        ><mat-spinner color="primary" diameter="80"> </mat-spinner
-      ></mat-icon>
+      <div class="col-md-2 col-centered">
+        <mat-spinner color="primary" diameter="80"> </mat-spinner>
+      </div>
     </ng-template>
   </div>
-</app-wrapper>
+</app-template>

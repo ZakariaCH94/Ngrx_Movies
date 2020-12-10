@@ -1,0 +1,11 @@
+.container {
+  margin-top: 15px;
+}
+.panel-info > .panel-heading {
+  color: #fc9b2d !important;
+  background-color: #211424 !important;
+  border-color: #fc9b2d !important;
+}
+.panel-info > .panel-body {
+  background-color: #211424 !important;
+}

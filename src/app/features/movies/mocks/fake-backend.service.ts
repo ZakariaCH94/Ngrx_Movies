@@ -13,7 +13,6 @@ import { Observable, of, throwError } from "rxjs";
 import { delay, mergeMap, materialize, dematerialize } from "rxjs/operators";
 
 // array in local storage for registered users
-let users = JSON.parse(sessionStorage.getItem("users")) || [];
 let categoriesStorage = JSON.parse(sessionStorage.getItem("categories")) || [];
 let moviesStorage = JSON.parse(sessionStorage.getItem("movies")) || [];
 
@@ -49,7 +48,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         id: 5,
         categoryId: 1,
         language: "Japanese",
-        recordedYear: 2011,
+        recordedYear: 2018,
         title: "あの花",
         image: "https://www.flagsonline.fr/uploads/2016-6-6/420-272/japan.jpg",
         specialMention: {
@@ -61,7 +60,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         id: 6,
         categoryId: 1,
         language: "Japanese",
-        recordedYear: 2010,
+        recordedYear: 2019,
         title: "エンジェルビーツ",
         image: "https://www.flagsonline.fr/uploads/2016-6-6/420-272/japan.jpg",
         specialMention: {
@@ -73,7 +72,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         id: 2,
         categoryId: 2,
         language: "English",
-        recordedYear: 1992,
+        recordedYear: 2017,
         title: "Wayne's world",
         image: "https://i.ebayimg.com/images/g/LmIAAOSw3YNXYwX-/s-l300.jpg",
         specialMention: {
@@ -85,7 +84,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         id: 7,
         categoryId: 2,
         language: "English",
-        recordedYear: 1996,
+        recordedYear: 2019,
         title: "Beavis & Butt-head do America",
         image: "https://i.ebayimg.com/images/g/LmIAAOSw3YNXYwX-/s-l300.jpg",
         specialMention: {
@@ -97,7 +96,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         id: 8,
         categoryId: 2,
         language: "English",
-        recordedYear: 1999,
+        recordedYear: 2020,
         title: "Human traffic",
         image: "https://i.ebayimg.com/images/g/LmIAAOSw3YNXYwX-/s-l300.jpg",
         specialMention: {
@@ -109,9 +108,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         id: 9,
         categoryId: 2,
         language: "English",
-        recordedYear: 2012,
+        recordedYear: 2019,
         title: "Ted",
-        image: "ted.jpg",
+        image: "https://i.ebayimg.com/images/g/LmIAAOSw3YNXYwX-/s-l300.jpg",
         specialMention: {
           firstName: "Seth",
           lastName: "MacFarlane",
@@ -121,7 +120,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         id: 13,
         categoryId: 2,
         language: "English",
-        recordedYear: 2004,
+        recordedYear: 2016,
         title: "Harold & Kumar",
         image: "https://i.ebayimg.com/images/g/LmIAAOSw3YNXYwX-/s-l300.jpg",
         specialMention: {
@@ -133,7 +132,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         id: 10,
         categoryId: 2,
         language: "English",
-        recordedYear: 1998,
+        recordedYear: 2020,
         title: "The big lebowski",
         image: "https://i.ebayimg.com/images/g/LmIAAOSw3YNXYwX-/s-l300.jpg",
         specialMention: {
@@ -145,7 +144,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         id: 3,
         categoryId: 3,
         language: "English",
-        recordedYear: 2014,
+        recordedYear: 2018,
         title: "Whiplash",
         image: "https://i.ebayimg.com/images/g/LmIAAOSw3YNXYwX-/s-l300.jpg",
         specialMention: {
@@ -157,7 +156,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         id: 11,
         categoryId: 3,
         language: "English",
-        recordedYear: 2000,
+        recordedYear: 2019,
         title: "The Filth And The Fury",
         image: "https://i.ebayimg.com/images/g/LmIAAOSw3YNXYwX-/s-l300.jpg",
         specialMention: {
@@ -169,7 +168,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         id: 12,
         categoryId: 3,
         language: "English",
-        recordedYear: 1980,
+        recordedYear: 2020,
         title: "The blues brothers",
         image: "https://i.ebayimg.com/images/g/LmIAAOSw3YNXYwX-/s-l300.jpg",
         specialMention: {
@@ -205,7 +204,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         emojiStyle: "emoji-swell",
       },
     ];
-    /*     sessionStorage.setItem("categories", JSON.stringify(categories));
+   /*  sessionStorage.setItem("categories", JSON.stringify(categories));
     sessionStorage.setItem("movies", JSON.stringify(movies)); */
   }
   intercept(
@@ -223,12 +222,16 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
     function handleRoute() {
       switch (true) {
-        case url.endsWith("/movie") && method === "POST":
-          return saveMovie();
         case url.endsWith("/categories") && method === "GET":
           return getCategories();
         case url.endsWith("/movies") && method === "GET":
           return getMovies();
+        case url.endsWith("/movie") && method === "POST":
+          return saveMovie();
+        case url.match(/\/movie\/\d+$/) && method === "POST":
+          return updateMovie();
+        case url.match(/\/movie\/\d+$/) && method === "DELETE":
+          return deleteMovie();
 
         default:
           // pass through any requests not handled above
@@ -238,24 +241,58 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
     // route functions
 
+    function getCategories() {
+      return ok(categoriesStorage);
+    }
+
+    function getMovies() {
+      console.log(moviesStorage);
+      return ok(moviesStorage);
+    }
+
     function saveMovie() {
-      const movieSaved = body;
+      console.log(body);
+      const movieSaved = {
+        id: Math.floor(Math.random() * 1000),
+        categoryId: body.categoryId,
+        title: body.title,
+        language: body.language,
+        recordedYear: body.recordedYear,
+        image: body.image,
+        specialMention: {
+          lastName: body.specialMention.lastName,
+          firstName: body.specialMention.firstName,
+        },
+      };
+
       if (
         moviesStorage.find((movie: Movie) => movie.title === movieSaved.title)
       ) {
         return error("movie  " + movieSaved.title + "  is already taken");
       }
+      moviesStorage = [...moviesStorage];
       moviesStorage.push(movieSaved);
       sessionStorage.setItem("movies", JSON.stringify(moviesStorage));
 
-      return ok("movie  " + movieSaved.title + "  successfully added");
+      return ok(movieSaved);
     }
 
-    function getCategories() {
-      return ok(categoriesStorage);
+    function updateMovie() {
+      const movieSaved = body;
+      moviesStorage = moviesStorage.filter(
+        (movie: Movie) => movie.id !== idFromUrl()
+      );
+      moviesStorage.push(movieSaved);
+      sessionStorage.setItem("movies", JSON.stringify(moviesStorage));
+      return ok("movie  " + movieSaved.title + "  successfully updated");
     }
-    function getMovies() {
-      return ok(moviesStorage);
+
+    function deleteMovie() {
+      moviesStorage = moviesStorage.filter(
+        (movie: Movie) => movie.id !== idFromUrl()
+      );
+      sessionStorage.setItem("movies", JSON.stringify(moviesStorage));
+      return ok("movie successfully deleted");
     }
 
     // helper functions
@@ -272,7 +309,13 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     }
 
     function error(message) {
+      console.log(error);
       return throwError({ error: { message } });
+    }
+
+    function idFromUrl() {
+      const urlParts = url.split("/");
+      return parseInt(urlParts[urlParts.length - 1]);
     }
   }
 }
