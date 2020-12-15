@@ -1,24 +1,21 @@
 import { Component, OnInit } from "@angular/core";
-import { Router, NavigationEnd } from "@angular/router";
 import { ElementsState } from "../../store/reducers";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
-import { Movie, Category } from "../../models";
+import { Movie } from "../../models";
 import * as selectors from "../../store/selectors";
 import { MoviesService } from "../../services";
 import * as actionsType from "../../store/actions";
 @Component({
-  selector: "app-update-movie",
-  templateUrl: "./update-movie.component.html",
-  styleUrls: ["./update-movie.component.css"],
+  selector: "app-movie-details-container",
+  templateUrl: "./movie-details-container.component.html",
+  styleUrls: ["./movie-details-container.component.css"],
 })
-export class UpdateMovieComponent implements OnInit {
+export class MovieDetailsContainerComponent implements OnInit {
   movie$: Observable<Movie>;
   loadingCategories$: Observable<boolean>;
   loadingMovies$: Observable<boolean>;
-  optionsCategories$: Observable<Category[]>;
-  loadingUpdateMovie$: Observable<boolean>;
-
+  loadingAddOrDeleteMovieToMycollection$: Observable<boolean>;
   constructor(
     private store: Store<ElementsState>,
     private moviesService: MoviesService
@@ -34,16 +31,14 @@ export class UpdateMovieComponent implements OnInit {
     this.loadingMovies$ = this.store.select<boolean>(
       selectors.getIsLoadingAllMovies
     );
-
-    this.optionsCategories$ = this.store.select<Category[]>(
-      selectors.getAllCategories
-    );
-    this.loadingUpdateMovie$ = this.store.select<boolean>(
+    this.loadingAddOrDeleteMovieToMycollection$ = this.store.select<boolean>(
       selectors.getIsLoadingActionMovie
     );
   }
 
-  OnAddMovie(dataMovie: any) {
-    this.store.dispatch(actionsType.UPDATE_MOVIE({ movie: dataMovie.movie }));
+  OnAddOrDeleteToMyCollection(movieId: number) {
+    this.store.dispatch(
+      actionsType.ADD_OR_DELETE_MOVIE_COLLECTION({ movieId: movieId })
+    );
   }
 }

@@ -94,6 +94,38 @@ const reducerMovies = createReducer(
   }),
   on(moviesAction.DELETE_MOVIE_ERROR, (state, { error }) => {
     return { ...state, loadingActionMovie: false, error: error };
+  }),
+  on(moviesAction.ADD_OR_DELETE_MOVIE_COLLECTION, (state, { movieId }) => {
+    return { ...state, movieId: movieId, loadingActionMovie: true };
+  }),
+  on(
+    moviesAction.ADD_OR_DELETE_MOVIE_COLLECTION_SUCCESS,
+    (state, { reply }) => {
+      const currentMovie: Movie = state.movies.find(
+        (movie: Movie) => movie.id == state.movieId
+      );
+
+      const currentMovieObject = Object.assign({}, currentMovie);
+
+      currentMovieObject.selected = !currentMovieObject.selected;
+
+      const currentMovies: Movie[] = state.movies.map((movie) => {
+        if (movie.id === currentMovieObject.id) {
+          movie = currentMovieObject;
+        }
+        return movie;
+      });
+
+      return {
+        ...state,
+        movies: currentMovies,
+        success: reply,
+        loadingActionMovie: false,
+      };
+    }
+  ),
+  on(moviesAction.ADD_OR_DELETE_MOVIE_COLLECTION_ERROR, (state, { error }) => {
+    return { ...state, loadingActionMovie: false, error: error };
   })
 );
 

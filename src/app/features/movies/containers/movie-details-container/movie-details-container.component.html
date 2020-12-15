@@ -1,0 +1,24 @@
+<div
+  class="row card"
+  *ngIf="
+    !(loadingCategories$ | async) && !(loadingMovies$ | async);
+    else loader
+  "
+>
+  <ng-container>
+    <app-movie-details
+      [movie]="movie$ | async"
+      [loadingAddOrDeleteMovieToMycollection]="
+        loadingAddOrDeleteMovieToMycollection$ | async
+      "
+      (addOrDeleteToMyCollection)="OnAddOrDeleteToMyCollection($event)"
+    ></app-movie-details>
+  </ng-container>
+</div>
+<div class="row">
+  <ng-template #loader>
+    <div class="col-md-2 col-centered">
+      <mat-spinner color="primary" diameter="80"> </mat-spinner>
+    </div>
+  </ng-template>
+</div>

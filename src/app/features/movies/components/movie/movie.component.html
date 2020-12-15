@@ -22,16 +22,28 @@
     </mat-card-content>
     <mat-card-actions>
       <button
+        *ngIf="parent != 'collection'"
         mat-raised-button
         (click)="updateMovie.emit(movie.id)"
         color="primary"
       >
         Update
       </button>
-      <button mat-raised-button (click)="delete(movie.id)" color="accent">
+      <button
+        *ngIf="parent != 'collection'"
+        mat-raised-button
+        (click)="delete(movie.id)"
+        color="accent"
+      >
         Delete
       </button>
-      <button mat-raised-button color="primary">add</button>
+      <button
+        mat-raised-button
+        (click)="detailsMovie.emit(movie.id)"
+        color="primary"
+      >
+        details
+      </button>
     </mat-card-actions>
   </mat-card>
 </div>

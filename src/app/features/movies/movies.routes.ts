@@ -4,23 +4,42 @@ import {
   CategoriesListComponent,
   MoviesListComponent,
   UpdateMovieComponent,
+  MovieDetailsContainerComponent,
+  TemplateComponent,
+  MoviesCollectionComponent,
 } from "./containers";
 
 export const routes: Routes = [
   {
     path: "",
-    component: CategoriesListComponent,
-  },
-  {
-    path: "category/:categoryId",
-    component: MoviesListComponent,
-  },
-  {
-    path: "addMovie",
-    component: AddMovieComponent,
-  },
-  {
-    path: "movie/:movieId",
-    component: UpdateMovieComponent,
+
+    component: TemplateComponent,
+
+    children: [
+      {
+        path: "",
+        component: CategoriesListComponent,
+      },
+      {
+        path: "category/:categoryId",
+        component: MoviesListComponent,
+      },
+      {
+        path: "add-movie",
+        component: AddMovieComponent,
+      },
+      {
+        path: "movie/:movieId",
+        component: UpdateMovieComponent,
+      },
+      {
+        path: "movie-details/:movieId",
+        component: MovieDetailsContainerComponent,
+      },
+      {
+        path: "my-collection",
+        component: MoviesCollectionComponent,
+      },
+    ],
   },
 ];

@@ -1,0 +1,42 @@
+<div *ngIf="movies$ | async as movies">
+  <div class="row">
+    <div class="col-md-2 col-centered">
+      <app-search
+        [searchName]="'search movie'"
+        [searchValue]="searchValue$ | async"
+        (search)="search($event)"
+      ></app-search>
+    </div>
+  </div>
+  <div
+    class="row"
+    *ngIf="
+      !(loadingCategories$ | async) && !(loadingMovies$ | async);
+      else loader
+    "
+  >
+    <ng-container *ngIf="movies.length > 0; else noMovie">
+      <app-movie
+        *ngFor="let movie of movies | titleMoviesFilter: searchValue"
+        [movie]="movie"
+        [parent]="'collection'"
+        (detailsMovie)="onDetailsMovie($event)"
+      ></app-movie>
+    </ng-container>
+  </div>
+
+  <div class="row">
+    <ng-template #loader>
+      <div class="col-md-2 col-centered">
+        <mat-spinner color="primary" diameter="80"> </mat-spinner>
+      </div>
+    </ng-template>
+  </div>
+  <div class="row">
+    <ng-template #noMovie>
+      <div class="col-md-2 col-centered">
+        <p>No movie is in your collection</p>
+      </div>
+    </ng-template>
+  </div>
+</div>

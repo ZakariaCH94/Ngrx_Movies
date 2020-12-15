@@ -1,17 +1,17 @@
-<div class="container-fluid">
-  <mat-toolbar class="form-element">
-    <span class="fill-remaining-space" *ngIf="action == 'add movie'"
-      >Add your movie</span
-    >
-    <span class="fill-remaining-space" *ngIf="action == 'update movie'"
-      >update your movie</span
-    >
-  </mat-toolbar>
+<mat-toolbar class="form-element">
+  <span class="fill-remaining-space" *ngIf="action == 'add movie'"
+    >Add your movie</span
+  >
+  <span class="fill-remaining-space" *ngIf="action == 'update movie'"
+    >update your movie</span
+  >
+</mat-toolbar>
+<mat-card>
   <form [formGroup]="registerMovieForm" (ngSubmit)="onSubmit()" class="form">
     <mat-form-field class="form-element" appearance="outline">
       <input matInput type="text" placeholder="Title" formControlName="title" />
       <mat-error *ngIf="!f.title.valid && f.title.touched">
-        This field is required and must not exceed 35 characters</mat-error
+        {{ titleAlert }} and must not exceed 35 characters</mat-error
       >
     </mat-form-field>
     <app-select
@@ -50,7 +50,9 @@
         formControlName="image"
       />
       <mat-hint>Link of image movie</mat-hint>
-      <mat-error *ngIf="!f.image.valid && f.image.touched"> </mat-error>
+      <mat-error *ngIf="!f.image.valid && f.image.touched"
+        >{{ titleAlert }}
+      </mat-error>
     </mat-form-field>
     <mat-form-field class="form-element" appearance="outline">
       <input
@@ -60,7 +62,8 @@
         formControlName="heroLastName"
       />
 
-      <mat-error *ngIf="!f.heroLastName.valid && f.heroLastName.touched">
+      <mat-error *ngIf="!f.heroLastName.valid && f.heroLastName.touched"
+        >{{ titleAlert }}
       </mat-error>
     </mat-form-field>
     <mat-form-field class="form-element" appearance="outline">
@@ -71,7 +74,21 @@
         formControlName="heroFirstName"
       />
 
-      <mat-error *ngIf="!f.heroFirstName.valid && f.heroFirstName.touched">
+      <mat-error *ngIf="!f.heroFirstName.valid && f.heroFirstName.touched"
+        >{{ titleAlert }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="form-element" appearance="outline">
+      <textarea
+        style="min-height: 9em"
+        matInput
+        placeholder="description of movie"
+        formControlName="description"
+      ></textarea>
+      <mat-hint>give more details about the film</mat-hint>
+
+      <mat-error *ngIf="!f.description.valid && f.description.touched"
+        >{{ titleAlert }} and must not exceed 35 characters
       </mat-error>
     </mat-form-field>
 
@@ -82,4 +99,4 @@
       ></mat-bar-button>
     </div>
   </form>
-</div>
+</mat-card>

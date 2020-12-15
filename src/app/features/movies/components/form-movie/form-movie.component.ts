@@ -18,6 +18,7 @@ import { MatProgressButtonOptions } from "mat-progress-buttons";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormMovieComponent implements OnInit, OnChanges {
+  submitted: boolean = false;
   @Input() action: string = "";
   @Input() optionsCategories: Category[];
   @Input() loadingAddMovie: boolean = false;
@@ -34,9 +35,10 @@ export class FormMovieComponent implements OnInit, OnChanges {
     "Arabic",
     "Russe",
     "Spanish",
+    "Japanese",
   ];
   labelYear: string = "Year";
-  optionsYear: number[] = [2015, 2016, 2017, 2018, 2019, 2020];
+  optionsYear: number[] = [2015, 2016, 2017, 2018, 2019, 2020, 2021];
   labelCategory: string = "Category";
   barButtonOptions: MatProgressButtonOptions = {
     active: this.loadingAddMovie,
@@ -58,6 +60,16 @@ export class FormMovieComponent implements OnInit, OnChanges {
   ngOnChanges() {
     this.barButtonOptions.active = this.loadingAddMovie;
     this.barButtonOptions.text = this.action;
+    if (this.submitted == true) {
+      if (this.action == "add movie") {
+        this.barButtonOptions.text = "Saving movie ...";
+      } else {
+        this.barButtonOptions.text = "Updating movie ...";
+      }
+    }
+    if (this.loadingAddMovie == false) {
+      this.barButtonOptions.text = this.action;
+    }
   }
   ngOnInit(): void {
     this.createForm();
@@ -66,7 +78,7 @@ export class FormMovieComponent implements OnInit, OnChanges {
     this.registerMovieForm = this.formBuilder.group({
       title: [
         this.movie.title,
-        [Validators.required, Validators.maxLength(35)],
+        [Validators.required, Validators.maxLength(22)],
       ],
       language: [this.movie.language, Validators.required],
       recordedYear: [this.movie.recordedYear, Validators.required],
@@ -74,6 +86,10 @@ export class FormMovieComponent implements OnInit, OnChanges {
       image: [this.movie.image, Validators.required],
       heroLastName: [this.movie.specialMention.lastName, Validators.required],
       heroFirstName: [this.movie.specialMention.firstName, Validators.required],
+      description: [
+        this.movie.description,
+        [Validators.required, Validators.maxLength(300)],
+      ],
     });
   }
   get f() {
@@ -91,8 +107,12 @@ export class FormMovieComponent implements OnInit, OnChanges {
         lastName: this.registerMovieForm.value["heroLastName"],
         firstName: this.registerMovieForm.value["heroFirstName"],
       },
+      description: this.registerMovieForm.value["description"],
+      selected: this.movie.selected,
     };
-
+    if (this.registerMovieForm.valid) {
+      this.submitted = true;
+    }
     this.addMovie.emit({ movie: this.movieForm });
   }
 }

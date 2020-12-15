@@ -1,12 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { ElementsState } from "../../store/reducers";
-import { Router, NavigationEnd } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { Observable, Subscription } from "rxjs";
 import { Category, Movie } from "../../models";
 import * as actionsType from "../../store/actions";
-import { filter } from "rxjs/operators";
 import * as selectors from "../../store/selectors";
+import { MoviesService } from "../../services";
 @Component({
   selector: "app-add-movie",
   templateUrl: "./add-movie.component.html",
@@ -24,6 +23,8 @@ export class AddMovieComponent implements OnInit {
       lastName: "",
       firstName: "",
     },
+    description: "",
+    selected: false,
   };
 
   optionsCategories$: Observable<Category[]>;
@@ -33,15 +34,11 @@ export class AddMovieComponent implements OnInit {
   success$: Subscription;
   error$: Subscription;
 
-  constructor(private store: Store<ElementsState>, private router: Router) {
-    this.router.events
-      .pipe(filter((rs): rs is NavigationEnd => rs instanceof NavigationEnd))
-      .subscribe((event) => {
-        if (event.id === 1 && event.url === event.urlAfterRedirects) {
-          this.store.dispatch(actionsType.GET_CATEGORIES());
-          this.store.dispatch(actionsType.GET_MOVIES());
-        }
-      });
+  constructor(
+    private store: Store<ElementsState>,
+    private moviesService: MoviesService
+  ) {
+    this.moviesService.getCategoriesAndMoviesAfterRefreshPage();
   }
 
   ngOnInit(): void {

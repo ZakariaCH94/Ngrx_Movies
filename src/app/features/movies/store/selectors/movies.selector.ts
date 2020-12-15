@@ -35,6 +35,10 @@ export const getMovieById = createSelector(
   }
 );
 
+export const getMyCollectionMovies = createSelector(getAllMovies, (movies) => {
+  return movies.filter((movie) => movie.selected == true);
+});
+
 export const getIsLoadingAllMovies = createSelector(
   getMoviesState,
   moviesReducer.getIsLoadingAllMovies

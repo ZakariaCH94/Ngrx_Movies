@@ -10,8 +10,11 @@ import { MatDialog } from "@angular/material/dialog";
 })
 export class MovieComponent implements OnInit {
   @Input() movie: Movie;
+  @Input() parent: string;
+
   @Output() updateMovie = new EventEmitter<number>();
   @Output() deleteMovie = new EventEmitter<number>();
+  @Output() detailsMovie = new EventEmitter<number>();
 
   constructor(private dialog: MatDialog) {}
 

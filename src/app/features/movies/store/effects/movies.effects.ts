@@ -20,10 +20,13 @@ export class MoviesEffect {
       ofType(moviesActions.GET_MOVIES),
       mergeMap(() =>
         this.moviesService.getMovies().pipe(
-          map((movies: Movie[]) =>
-            moviesActions.GET_MOVIES_SUCCESS({
-              movies: movies,
-            })
+          map(
+            (movies: Movie[]) => (
+              console.log(movies),
+              moviesActions.GET_MOVIES_SUCCESS({
+                movies: movies,
+              })
+            )
           ),
           catchError((err) =>
             of(moviesActions.GET_MOVIES_ERROR({ error: err }))
@@ -138,6 +141,46 @@ export class MoviesEffect {
                 verticalPosition: "bottom",
               }),
               of(moviesActions.DELETE_MOVIE_ERROR({ error: err }))
+            )
+          )
+        )
+      )
+    )
+  );
+  addMovieToMyCollection$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(moviesActions.ADD_OR_DELETE_MOVIE_COLLECTION),
+      mergeMap(
+        (action) => (
+          console.log(action),
+          this.moviesService.addMovieToMyCollection(action.movieId).pipe(
+            map(
+              (reply: string) => (
+                this.snackBar.open(reply, undefined, {
+                  duration: 5000,
+                  horizontalPosition: "end",
+                  verticalPosition: "bottom",
+                }),
+                console.log(reply),
+                moviesActions.ADD_OR_DELETE_MOVIE_COLLECTION_SUCCESS({
+                  reply: reply,
+                })
+              )
+            ),
+            catchError(
+              (err) => (
+                console.log(err),
+                this.snackBar.open(err.error.message, undefined, {
+                  duration: 5000,
+                  horizontalPosition: "end",
+                  verticalPosition: "bottom",
+                }),
+                of(
+                  moviesActions.ADD_OR_DELETE_MOVIE_COLLECTION_ERROR({
+                    error: err,
+                  })
+                )
+              )
             )
           )
         )

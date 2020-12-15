@@ -5,7 +5,7 @@ import {
   ViewChild,
   ChangeDetectorRef,
 } from "@angular/core";
-import { Router, NavigationEnd } from "@angular/router";
+import { Router } from "@angular/router";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatTableDataSource } from "@angular/material/table";
 
@@ -16,7 +16,7 @@ import * as selectors from "../../store/selectors";
 import { Movie } from "../../models";
 import * as actionsType from "../../store/actions";
 import { of } from "rxjs";
-import { filter } from "rxjs/operators";
+import { MoviesService } from "../../services";
 
 @Component({
   selector: "app-movies-list",
@@ -38,16 +38,10 @@ export class MoviesListComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<ElementsState>,
     private router: Router,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    private moviesService: MoviesService
   ) {
-    this.router.events
-      .pipe(filter((rs): rs is NavigationEnd => rs instanceof NavigationEnd))
-      .subscribe((event) => {
-        if (event.id === 1 && event.url === event.urlAfterRedirects) {
-          this.store.dispatch(actionsType.GET_MOVIES());
-          this.store.dispatch(actionsType.GET_CATEGORIES());
-        }
-      });
+    this.moviesService.getCategoriesAndMoviesAfterRefreshPage();
   }
 
   ngOnInit(): void {
@@ -69,8 +63,6 @@ export class MoviesListComponent implements OnInit, OnDestroy {
     this.movies$.subscribe((movies) => {
       this.dataSource.data = movies;
       this.dataSource.paginator = this.paginator;
-      console.log(this.dataSource.data);
-      console.log(this.dataSource.paginator);
     });
     this.obs = this.dataSource.connect();
   }
@@ -90,5 +82,9 @@ export class MoviesListComponent implements OnInit, OnDestroy {
 
   onDeleteMovie(movieId: number) {
     this.store.dispatch(actionsType.DELETE_MOVIE({ movieId: movieId }));
+  }
+
+  onDetailsMovie(movieId: number) {
+    this.router.navigate([`movies/movie-details/${movieId}`]);
   }
 }

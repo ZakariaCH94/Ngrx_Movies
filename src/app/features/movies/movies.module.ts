@@ -6,7 +6,19 @@ import {
   MoviesListComponent,
   AddMovieComponent,
   UpdateMovieComponent,
+  MoviesCollectionComponent,
+  MovieDetailsContainerComponent,
 } from "./containers";
+import {
+  CategoryComponent,
+  MovieComponent,
+  SearchComponent,
+  FormMovieComponent,
+  SelectComponent,
+  SelectTabObjectComponent,
+  ConfirmationDialogComponent,
+  MovieDetailsComponent,
+} from "./components";
 import { MoviesRoutingModule } from "./movies-routing.module";
 import { MatIconModule } from "@angular/material/icon";
 import { MatFormFieldModule } from "@angular/material/form-field";
@@ -22,16 +34,9 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatSelectModule } from "@angular/material/select";
 import { MatTableModule } from "@angular/material/table";
 import { MatSidenavModule } from "@angular/material/sidenav";
-
-import {
-  CategoryComponent,
-  MovieComponent,
-  SearchComponent,
-  FormMovieComponent,
-  SelectComponent,
-  SelectTabObjectComponent,
-  ConfirmationDialogComponent,
-} from "./components";
+import { MatListModule } from "@angular/material/list";
+import { MatDividerModule } from "@angular/material/divider";
+import { MatGridListModule } from "@angular/material/grid-list";
 import { MoviesService } from "./services";
 import { reducers } from "./store/reducers";
 import { routerReducers } from "./router-store";
@@ -64,6 +69,9 @@ import { MediaMatcher } from "@angular/cdk/layout";
     SelectTabObjectComponent,
     UpdateMovieComponent,
     ConfirmationDialogComponent,
+    MoviesCollectionComponent,
+    MovieDetailsComponent,
+    MovieDetailsContainerComponent,
   ],
   imports: [
     CommonModule,
@@ -86,6 +94,9 @@ import { MediaMatcher } from "@angular/cdk/layout";
     MatPaginatorModule,
     MatTableModule,
     MatSidenavModule,
+    MatListModule,
+    MatDividerModule,
+    MatGridListModule,
     StoreModule.forRoot({}),
     StoreModule.forFeature("elements", reducers),
     StoreModule.forFeature("router", routerReducers),

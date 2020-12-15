@@ -1,28 +1,25 @@
-<app-template>
-  <div
-    class="row"
-    *ngIf="
-      !(loadingCategories$ | async) && !(loadingMovies$ | async);
-      else loader
-    "
-  >
-    <div class="col-md-offset-2">
-      <ng-container>
-        <app-form-movie
-          [optionsCategories]="optionsCategories$ | async"
-          [movie]="movie"
-          (addMovie)="OnAddMovie($event)"
-          [loadingAddMovie]="loadingAddMovie$ | async"
-          [action]="'add movie'"
-        ></app-form-movie>
-      </ng-container>
+<div class="row">
+  <div class="col-md-offset-1">
+    <ng-container
+      *ngIf="
+        !(loadingCategories$ | async) && !(loadingMovies$ | async);
+        else loader
+      "
+    >
+      <app-form-movie
+        [optionsCategories]="optionsCategories$ | async"
+        [movie]="movie"
+        (addMovie)="OnAddMovie($event)"
+        [loadingAddMovie]="loadingAddMovie$ | async"
+        [action]="'add movie'"
+      ></app-form-movie>
+    </ng-container>
+  </div>
+</div>
+<div class="row">
+  <ng-template #loader>
+    <div class="col-md-2 col-centered">
+      <mat-spinner color="primary" diameter="80"> </mat-spinner>
     </div>
-  </div>
-  <div class="row">
-    <ng-template #loader>
-      <div class="col-md-2 col-centered">
-        <mat-spinner color="primary" diameter="80"> </mat-spinner>
-      </div>
-    </ng-template>
-  </div>
-</app-template>
+  </ng-template>
+</div>

@@ -18,8 +18,13 @@
         >
       </li>
       <li>
-        <a routerLink="/movies/addMovie"
+        <a routerLink="/movies/add-movie"
           >Add movie<mat-icon>movie_creation</mat-icon></a
+        >
+      </li>
+      <li>
+        <a routerLink="/movies/my-collection"
+          >My collection<mat-icon>collections</mat-icon></a
         >
       </li>
     </ul>
@@ -37,8 +42,8 @@
         <mat-icon>menu</mat-icon>
       </button>
     </mat-toolbar>
-    <mat-card>
-      <ng-content></ng-content>
-    </mat-card>
+    <div class="container-fluid">
+      <router-outlet></router-outlet>
+    </div>
   </mat-drawer-content>
 </mat-drawer-container>

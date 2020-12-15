@@ -8,4 +8,6 @@ export interface Movie {
   recordedYear: number;
   image: string;
   specialMention: Person;
+  description: string;
+  selected: boolean;
 }

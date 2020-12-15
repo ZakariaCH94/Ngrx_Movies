@@ -1,0 +1,12 @@
+.col-centered {
+  float: none;
+  margin: 0 auto;
+}
+
+.card {
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+}

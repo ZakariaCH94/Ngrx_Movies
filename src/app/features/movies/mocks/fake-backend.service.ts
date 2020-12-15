@@ -31,7 +31,11 @@ export class FakeBackendInterceptor implements HttpInterceptor {
           firstName: "makoto",
           lastName: "shinkai",
         },
+        description:
+          "説明：「映画、または映画は、動画や音声を使用して物語を語ったり、人々に何かを教えたりする一種の視覚的コミュニケーションです。ほとんどの人は、一種の娯楽または楽しみの方法として映画を見る（見る）」、",
+        selected: false,
       },
+
       {
         id: 4,
         categoryId: 1,
@@ -43,6 +47,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
           firstName: "Nobuyuki",
           lastName: "Takeuchi",
         },
+        description:
+          "説明：「映画、または映画は、動画や音声を使用して物語を語ったり、人々に何かを教えたりする一種の視覚的コミュニケーションです。ほとんどの人は、一種の娯楽または楽しみの方法として映画を見る（見る）」、",
+        selected: false,
       },
       {
         id: 5,
@@ -55,6 +62,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
           firstName: "Tatsuyuki",
           lastName: "Nagai",
         },
+        description:
+          "説明：「映画、または映画は、動画や音声を使用して物語を語ったり、人々に何かを教えたりする一種の視覚的コミュニケーションです。ほとんどの人は、一種の娯楽または楽しみの方法として映画を見る（見る）」、",
+        selected: false,
       },
       {
         id: 6,
@@ -67,6 +77,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
           firstName: "Hiro",
           lastName: "Maruyama",
         },
+        description:
+          "説明：「映画、または映画は、動画や音声を使用して物語を語ったり、人々に何かを教えたりする一種の視覚的コミュニケーションです。ほとんどの人は、一種の娯楽または楽しみの方法として映画を見る（見る）」、",
+        selected: true,
       },
       {
         id: 2,
@@ -79,6 +92,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
           firstName: "Mike",
           lastName: "Myers",
         },
+        description:
+          "Movies, or films, are a type of visual communication which uses moving pictures and sound to tell stories or teach people something. Most people watch (view) movies as a type of entertainment or a way to have fun",
+        selected: false,
       },
       {
         id: 7,
@@ -91,6 +107,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
           firstName: "Mike",
           lastName: "Judge",
         },
+        description:
+          "Movies, or films, are a type of visual communication which uses moving pictures and sound to tell stories or teach people something. Most people watch (view) movies as a type of entertainment or a way to have fun",
+        selected: true,
       },
       {
         id: 8,
@@ -103,6 +122,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
           firstName: "John",
           lastName: "Simm",
         },
+        description:
+          "Movies, or films, are a type of visual communication which uses moving pictures and sound to tell stories or teach people something. Most people watch (view) movies as a type of entertainment or a way to have fun",
+        selected: false,
       },
       {
         id: 9,
@@ -115,6 +137,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
           firstName: "Seth",
           lastName: "MacFarlane",
         },
+        description:
+          "Movies, or films, are a type of visual communication which uses moving pictures and sound to tell stories or teach people something. Most people watch (view) movies as a type of entertainment or a way to have fun",
+        selected: false,
       },
       {
         id: 13,
@@ -127,6 +152,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
           firstName: "John",
           lastName: "Cho",
         },
+        description:
+          "Movies, or films, are a type of visual communication which uses moving pictures and sound to tell stories or teach people something. Most people watch (view) movies as a type of entertainment or a way to have fun",
+        selected: true,
       },
       {
         id: 10,
@@ -139,6 +167,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
           firstName: "Steve",
           lastName: "Buscemi",
         },
+        description:
+          "Movies, or films, are a type of visual communication which uses moving pictures and sound to tell stories or teach people something. Most people watch (view) movies as a type of entertainment or a way to have fun",
+        selected: false,
       },
       {
         id: 3,
@@ -151,6 +182,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
           firstName: "J.K.",
           lastName: "Simmons",
         },
+        description:
+          "Movies, or films, are a type of visual communication which uses moving pictures and sound to tell stories or teach people something. Most people watch (view) movies as a type of entertainment or a way to have fun",
+        selected: false,
       },
       {
         id: 11,
@@ -163,6 +197,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
           firstName: "John",
           lastName: "Lydon",
         },
+        description:
+          "Movies, or films, are a type of visual communication which uses moving pictures and sound to tell stories or teach people something. Most people watch (view) movies as a type of entertainment or a way to have fun",
+        selected: false,
       },
       {
         id: 12,
@@ -175,6 +212,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
           firstName: "Dan",
           lastName: "Aykroyd",
         },
+        description:
+          "Movies, or films, are a type of visual communication which uses moving pictures and sound to tell stories or teach people something. Most people watch (view) movies as a type of entertainment or a way to have fun",
+        selected: false,
       },
     ];
 
@@ -204,7 +244,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         emojiStyle: "emoji-swell",
       },
     ];
-   /*  sessionStorage.setItem("categories", JSON.stringify(categories));
+    /*  sessionStorage.setItem("categories", JSON.stringify(categories));
     sessionStorage.setItem("movies", JSON.stringify(movies)); */
   }
   intercept(
@@ -228,10 +268,12 @@ export class FakeBackendInterceptor implements HttpInterceptor {
           return getMovies();
         case url.endsWith("/movie") && method === "POST":
           return saveMovie();
-        case url.match(/\/movie\/\d+$/) && method === "POST":
+        case url.match(/\/movie\/\d+$/) && method === "PUT":
           return updateMovie();
         case url.match(/\/movie\/\d+$/) && method === "DELETE":
           return deleteMovie();
+        case url.match(/\/movie\/\d+$/) && method === "POST":
+          return addMovieToMyCollection();
 
         default:
           // pass through any requests not handled above
@@ -246,13 +288,12 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     }
 
     function getMovies() {
-      console.log(moviesStorage);
       return ok(moviesStorage);
     }
 
     function saveMovie() {
       console.log(body);
-      const movieSaved = {
+      const movieSaved: Movie = {
         id: Math.floor(Math.random() * 1000),
         categoryId: body.categoryId,
         title: body.title,
@@ -263,6 +304,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
           lastName: body.specialMention.lastName,
           firstName: body.specialMention.firstName,
         },
+        description: body.description,
+        selected: body.selected,
       };
 
       if (
@@ -285,6 +328,34 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       moviesStorage.push(movieSaved);
       sessionStorage.setItem("movies", JSON.stringify(moviesStorage));
       return ok("movie  " + movieSaved.title + "  successfully updated");
+    }
+    function addMovieToMyCollection() {
+      let currentMovie: Movie = moviesStorage.find(
+        (movie: Movie) => movie.id == idFromUrl()
+      );
+
+      moviesStorage = moviesStorage.filter(
+        (movie: Movie) => movie.id !== currentMovie.id
+      );
+
+      const currentMovieObject = Object.assign({}, currentMovie);
+
+      currentMovieObject.selected = !currentMovieObject.selected;
+      moviesStorage.push(currentMovieObject);
+      sessionStorage.setItem("movies", JSON.stringify(moviesStorage));
+
+      if (currentMovieObject.selected == true) {
+        return ok(
+          "movie  " +
+            currentMovieObject.title +
+            "  successfully added to collection"
+        );
+      } else
+        return ok(
+          "movie  " +
+            currentMovieObject.title +
+            "  successfully remove to collection"
+        );
     }
 
     function deleteMovie() {

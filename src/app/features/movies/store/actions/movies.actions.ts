@@ -57,3 +57,18 @@ export const DELETE_MOVIE_ERROR = createAction(
   "[Movie] Delete_Movie_error",
   props<{ error: string }>()
 );
+
+export const ADD_OR_DELETE_MOVIE_COLLECTION = createAction(
+  "[Movie] Add_Or_Delete_Movie_Collection",
+  props<{ movieId: number }>()
+);
+
+export const ADD_OR_DELETE_MOVIE_COLLECTION_SUCCESS = createAction(
+  "[Movie] Add_Or_Delete_Movie_Collection_success",
+  props<{ reply: string }>()
+);
+
+export const ADD_OR_DELETE_MOVIE_COLLECTION_ERROR = createAction(
+  "[Movie] Add_Or_Delete_Movie_Collection_error",
+  props<{ error: string }>()
+);
