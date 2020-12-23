@@ -34,11 +34,4 @@ export class CategoriesEffect {
       )
     )
   );
-
-  loadCategoriesError$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(categoriesActions.GET_CATEGORIES_ERROR),
-      tap(() => this.router.navigate([""]))
-    )
-  );
 }
