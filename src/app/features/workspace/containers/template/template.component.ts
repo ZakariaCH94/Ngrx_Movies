@@ -17,6 +17,11 @@ export class TemplateComponent implements OnInit {
       link: "movies",
       image: "https://upload.wikimedia.org/wikipedia/en/b/b4/At-the-movies.jpg",
     },
+    {
+      name: "Movies -- component store",
+      link: "movies",
+      image: "https://upload.wikimedia.org/wikipedia/en/b/b4/At-the-movies.jpg",
+    },
   ];
   constructor() {}
 
