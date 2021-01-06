@@ -244,8 +244,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         emojiStyle: "emoji-swell",
       },
     ];
-    /*  sessionStorage.setItem("categories", JSON.stringify(categories));
-    sessionStorage.setItem("movies", JSON.stringify(movies)); */
+    sessionStorage.setItem("categories", JSON.stringify(categories));
+    sessionStorage.setItem("movies", JSON.stringify(movies));
   }
   intercept(
     request: HttpRequest<any>,

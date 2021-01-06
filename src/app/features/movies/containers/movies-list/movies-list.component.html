@@ -15,13 +15,13 @@
     "
   >
     <ng-container *ngIf="movies.length > 0; else noMovie">
-      <app-movie
+      <app-movie-preview
         *ngFor="let movie of obs | async | titleMoviesFilter: searchValue"
         [movie]="movie"
         (updateMovie)="onUpdateMovie($event)"
         (deleteMovie)="onDeleteMovie($event)"
         (detailsMovie)="onDetailsMovie($event)"
-      ></app-movie>
+      ></app-movie-preview>
     </ng-container>
   </div>
 </div>

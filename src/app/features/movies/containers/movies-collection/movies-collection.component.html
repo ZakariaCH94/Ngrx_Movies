@@ -16,12 +16,12 @@
     "
   >
     <ng-container *ngIf="movies.length > 0; else noMovie">
-      <app-movie
+      <app-movie-preview
         *ngFor="let movie of movies | titleMoviesFilter: searchValue"
         [movie]="movie"
         [parent]="'collection'"
         (detailsMovie)="onDetailsMovie($event)"
-      ></app-movie>
+      ></app-movie-preview>
     </ng-container>
   </div>
 

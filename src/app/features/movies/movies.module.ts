@@ -10,8 +10,8 @@ import {
   MovieDetailsContainerComponent,
 } from "./containers";
 import {
-  CategoryComponent,
-  MovieComponent,
+  CategoryPreviewComponent,
+  MoviePreviewComponent,
   SearchComponent,
   FormMovieComponent,
   SelectComponent,
@@ -56,11 +56,11 @@ import { MediaMatcher } from "@angular/cdk/layout";
   declarations: [
     TemplateComponent,
     CategoriesListComponent,
-    CategoryComponent,
+    CategoryPreviewComponent,
     SearchComponent,
     TitleCategoriesFilterPipe,
     MoviesListComponent,
-    MovieComponent,
+    MoviePreviewComponent,
     TitleMoviesFilterPipe,
     AddMovieComponent,
     FormMovieComponent,

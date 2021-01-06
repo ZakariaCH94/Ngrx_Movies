@@ -9,12 +9,12 @@ import {
 import { Category } from "../../models";
 
 @Component({
-  selector: "app-category",
-  templateUrl: "./category.component.html",
-  styleUrls: ["./category.component.css"],
+  selector: "app-category-preview",
+  templateUrl: "./category-preview.component.html",
+  styleUrls: ["./category-preview.component.css"],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CategoryComponent implements OnInit {
+export class CategoryPreviewComponent implements OnInit {
   @Input() category: Category;
   @Output() goToMovies = new EventEmitter<number>();
   constructor() {}

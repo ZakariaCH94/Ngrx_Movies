@@ -40,9 +40,9 @@ export class MoviesEffect {
     this.actions$.pipe(
       ofType(moviesActions.ADD_MOVIE),
       mergeMap(
-        (action) => (
-          console.log(action),
-          this.moviesService.addMovie(action.movie).pipe(
+        (data) => (
+          console.log(data),
+          this.moviesService.addMovie(data.movie).pipe(
             map(
               (movie: Movie) => (
                 this.snackBar.open(
@@ -81,9 +81,9 @@ export class MoviesEffect {
     this.actions$.pipe(
       ofType(moviesActions.UPDATE_MOVIE),
       mergeMap(
-        (action) => (
-          console.log(action),
-          this.moviesService.updateMovie(action.movie).pipe(
+        (data) => (
+          console.log(data),
+          this.moviesService.updateMovie(data.movie).pipe(
             map(
               (reply: string) => (
                 this.snackBar.open(reply, undefined, {
@@ -117,8 +117,8 @@ export class MoviesEffect {
   deleteMovies$ = createEffect(() =>
     this.actions$.pipe(
       ofType(moviesActions.DELETE_MOVIE),
-      mergeMap((action) =>
-        this.moviesService.deleteMovie(action.movieId).pipe(
+      mergeMap((data) =>
+        this.moviesService.deleteMovie(data.movieId).pipe(
           map(
             (reply: string) => (
               this.snackBar.open(reply, undefined, {
@@ -151,9 +151,9 @@ export class MoviesEffect {
     this.actions$.pipe(
       ofType(moviesActions.ADD_OR_DELETE_MOVIE_COLLECTION),
       mergeMap(
-        (action) => (
-          console.log(action),
-          this.moviesService.addMovieToMyCollection(action.movieId).pipe(
+        (data) => (
+          console.log(data),
+          this.moviesService.addMovieToMyCollection(data.movieId).pipe(
             map(
               (reply: string) => (
                 this.snackBar.open(reply, undefined, {

@@ -1,14 +1,14 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { Movie } from "../../models";
-import { ConfirmationDialogComponent } from "../../components/confirmation-dialog/confirmation-dialog.component";
+import { ConfirmationDialogComponent } from "../confirmation-dialog/confirmation-dialog.component";
 import { MatDialog } from "@angular/material/dialog";
 
 @Component({
-  selector: "app-movie",
-  templateUrl: "./movie.component.html",
-  styleUrls: ["./movie.component.css"],
+  selector: "app-movie-preview",
+  templateUrl: "./movie-preview.component.html",
+  styleUrls: ["./movie-preview.component.css"],
 })
-export class MovieComponent implements OnInit {
+export class MoviePreviewComponent implements OnInit {
   @Input() movie: Movie;
   @Input() parent: string;
 

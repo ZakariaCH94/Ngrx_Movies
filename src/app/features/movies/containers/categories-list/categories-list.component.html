@@ -14,11 +14,11 @@
       else loader
     "
   >
-    <app-category
+    <app-category-preview
       (goToMovies)="onGoToMovies($event)"
       *ngFor="let category of categories | titleCategoriesFilter: searchValue"
       [category]="category"
-    ></app-category>
+    ></app-category-preview>
   </ng-container>
 </div>
 <div class="row">
