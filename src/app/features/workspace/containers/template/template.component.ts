@@ -15,12 +15,14 @@ export class TemplateComponent implements OnInit {
     {
       name: "Movies module",
       link: "movies",
-      image: "https://upload.wikimedia.org/wikipedia/en/b/b4/At-the-movies.jpg",
+      image:
+        "https://img.favpng.com/18/17/18/popcorn-cinema-film-reel-clip-art-png-favpng-rnbc7vFwt5fwwFAaX0bYTibhq.jpg",
     },
     {
-      name: "Movies -- component store",
-      link: "movies",
-      image: "https://upload.wikimedia.org/wikipedia/en/b/b4/At-the-movies.jpg",
+      name: "Carrousel",
+      link: "carrousel",
+      image:
+        "https://www.textbroker.fr/wp-content/uploads/sites/4/2018/12/picture_297648-750x447.jpg",
     },
   ];
   constructor() {}
