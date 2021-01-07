@@ -3,7 +3,7 @@ import { ElementsState } from "../reducers";
 import * as categoriesReducer from "../reducers/categories.reducer";
 import { getElementsState } from "./elements.selector";
 
-const getCategoriesState = createSelector(
+export const getCategoriesState = createSelector(
   getElementsState,
   (state: ElementsState) => state.categories
 );

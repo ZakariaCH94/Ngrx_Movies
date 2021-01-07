@@ -3,6 +3,9 @@ import { ElementsState } from "../reducers";
 import * as moviesReducer from "../reducers/movies.reducer";
 import { getElementsState } from "./elements.selector";
 import { getRouter } from "../../router-store/router.state";
+import { MyRouterStateSnapshot } from "../../router-store";
+import { Movie } from "../../models";
+
 const getMoviesState = createSelector(
   getElementsState,
   (state: ElementsState) => state.movies
@@ -16,9 +19,9 @@ export const getAllMovies = createSelector(
 export const getSelectedMoviesByIdCategory = createSelector(
   getRouter,
   getAllMovies,
-  (router, movies) => {
+  (router: MyRouterStateSnapshot, movies: Movie[]) => {
     return movies.reduce((data, movie) => {
-      if (movie.categoryId == router.state.params["categoryId"]) {
+      if (movie.categoryId == router.params["categoryId"]) {
         data.push(movie);
       }
 
@@ -30,14 +33,17 @@ export const getSelectedMoviesByIdCategory = createSelector(
 export const getMovieById = createSelector(
   getRouter,
   getAllMovies,
-  (router, movies) => {
-    return movies.find((movie) => movie.id == router.state.params["movieId"]);
+  (router: MyRouterStateSnapshot, movies: Movie[]) => {
+    return movies.find((movie) => movie.id == router.params["movieId"]);
   }
 );
 
-export const getMyCollectionMovies = createSelector(getAllMovies, (movies) => {
-  return movies.filter((movie) => movie.selected == true);
-});
+export const getMyCollectionMovies = createSelector(
+  getAllMovies,
+  (movies: Movie[]) => {
+    return movies.filter((movie) => movie.selected == true);
+  }
+);
 
 export const getIsLoadingAllMovies = createSelector(
   getMoviesState,
