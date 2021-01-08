@@ -25,5 +25,5 @@ export const getRouterState = createFeatureSelector<
 >("router");
 export const getRouter = createSelector(
   getRouterState,
-  (routerState: any) => routerState.routerReducerState
+  (routerState: any) => routerState.routerReducerState.state
 );

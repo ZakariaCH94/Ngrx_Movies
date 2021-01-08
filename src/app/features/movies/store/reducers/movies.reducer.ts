@@ -1,7 +1,6 @@
 import { Action, createReducer, on } from "@ngrx/store";
 import { Movie } from "../../models";
 import * as moviesAction from "../actions";
-import * as _ from "lodash";
 
 export interface moviesState {
   movies: Movie[];

@@ -100,7 +100,6 @@ describe("Service: MoviesService", () => {
 
   it("addMovie: should return a movies", () => {
     service.addMovie(mockMovie).subscribe((movie: Movie) => {
-      console.log(movie);
       expect(movie.language).toEqual("English");
     });
     const req = httpMock.expectOne("http://localhost:4200:/movie");
