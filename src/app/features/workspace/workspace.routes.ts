@@ -10,4 +10,8 @@ export const routes: Routes = [
     path: "movies",
     loadChildren: () => import("../movies").then((m) => m.MoviesModule),
   },
+  {
+    path: "carrousel",
+    loadChildren: () => import("../carrousel").then((m) => m.CarrouselModule),
+  },
 ];

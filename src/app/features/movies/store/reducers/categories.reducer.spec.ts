@@ -4,7 +4,6 @@ import { Category } from "../../models";
 import { categoriesState } from "../reducers";
 
 let initCategoriesState: categoriesState;
-let newCategoriesState: categoriesState;
 let category: Category;
 
 describe("BooksReducer", () => {
@@ -20,11 +19,6 @@ describe("BooksReducer", () => {
         loading: true,
         error: "",
       });
-    newCategoriesState = {
-      categories: [category],
-      loading: false,
-      error: "",
-    };
   });
   describe("GET_CATEGORIES action", () => {
     it("should return the loading state ", () => {

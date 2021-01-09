@@ -1,0 +1,39 @@
+<mat-drawer-container>
+  <mat-drawer
+    #snav
+    [mode]="mobileQuery.matches ? 'over' : 'side'"
+    [opened]="!mobileQuery.matches"
+    [ngClass]="{ 'sidenav-collapsed': collapsedNav && !mobileQuery.matches }"
+  >
+    <div class="sidenav-header">
+      <span>{{ collapsedNav && !mobileQuery.matches ? "M" : "Movies" }}</span>
+    </div>
+    <ul>
+      <li>
+        <a routerLink="/">Home<mat-icon>home</mat-icon></a>
+      </li>
+      <li>
+        <a routerLink="/slides"
+          >Slides by profile<mat-icon>slideshow</mat-icon></a
+        >
+      </li>
+    </ul>
+  </mat-drawer>
+  <mat-drawer-content
+    [ngClass]="{ 'sidenav-collapsed': collapsedNav && !mobileQuery.matches }"
+  >
+    <mat-toolbar>
+      <button
+        mat-icon-button
+        (click)="
+          mobileQuery.matches ? snav.toggle() : (collapsedNav = !collapsedNav)
+        "
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+    </mat-toolbar>
+    <div class="container-fluid">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
