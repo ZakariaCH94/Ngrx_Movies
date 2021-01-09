@@ -1,11 +1,11 @@
 import * as selectorMovies from "./movies.selector";
 import { Movie } from "../../models";
-import { MyRouterStateSnapshot } from "../../router-store";
+import { MyRouterStateSnapshot } from "../../../shared/router-store";
 import { moviesState } from "../reducers";
 
 let initMovies: Movie[];
 let initMoviesState: moviesState;
-describe("Selectors", () => {
+describe("MoviesSelectors", () => {
   const initRouter: MyRouterStateSnapshot = {
     url: "/movies/movie-details/1",
     params: { movieId: "1" },

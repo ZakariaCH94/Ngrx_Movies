@@ -1,17 +1,15 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { of } from "rxjs";
-import { map, mergeMap, catchError, tap, delay } from "rxjs/operators";
+import { map, mergeMap, catchError } from "rxjs/operators";
 import * as categoriesActions from "../actions";
 import { MoviesService } from "../../services/movies.service";
-import { Router } from "@angular/router";
 import { Category } from "../../models";
 @Injectable()
 export class CategoriesEffect {
   constructor(
     private actions$: Actions,
-    private moviesService: MoviesService,
-    private router: Router
+    private moviesService: MoviesService
   ) {}
 
   loadCategories$ = createEffect(() =>

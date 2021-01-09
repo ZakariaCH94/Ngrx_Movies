@@ -6,7 +6,9 @@
     [ngClass]="{ 'sidenav-collapsed': collapsedNav && !mobileQuery.matches }"
   >
     <div class="sidenav-header">
-      <span>{{ collapsedNav && !mobileQuery.matches ? "M" : "Movies" }}</span>
+      <span>{{
+        collapsedNav && !mobileQuery.matches ? "S" : "Slideshow"
+      }}</span>
     </div>
     <ul>
       <li>

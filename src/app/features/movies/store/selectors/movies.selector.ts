@@ -2,8 +2,8 @@ import { createSelector } from "@ngrx/store";
 import { ElementsState } from "../reducers";
 import * as moviesReducer from "../reducers/movies.reducer";
 import { getElementsState } from "./elements.selector";
-import { getRouter } from "../../router-store/router.state";
-import { MyRouterStateSnapshot } from "../../router-store";
+import { getRouter } from "../../../shared/router-store";
+import { MyRouterStateSnapshot } from "../../../shared/router-store";
 import { Movie } from "../../models";
 
 const getMoviesState = createSelector(

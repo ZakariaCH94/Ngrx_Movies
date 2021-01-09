@@ -23,18 +23,15 @@ import { MaterialModule } from "./material.module";
 import { MoviesRoutingModule } from "./movies-routing.module";
 import { MoviesService } from "./services";
 import { reducers } from "./store/reducers";
-import { routerReducers } from "./router-store";
 import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
-import { StoreRouterConnectingModule } from "@ngrx/router-store";
 import { effects } from "./store/effects";
 import { TitleCategoriesFilterPipe, TitleMoviesFilterPipe } from "./pipes";
-import { CustomRouterStateSerializer } from "./router-store";
 import { fakeBackendProvider } from "./mocks";
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MediaMatcher } from "@angular/cdk/layout";
-
+import { SharedModule } from "../shared";
 @NgModule({
   declarations: [
     TemplateComponent,
@@ -63,14 +60,10 @@ import { MediaMatcher } from "@angular/cdk/layout";
     MoviesRoutingModule,
     HttpClientModule,
     MaterialModule,
-    StoreModule.forRoot({}),
+    SharedModule,
     StoreModule.forFeature("elements", reducers),
-    StoreModule.forFeature("router", routerReducers),
     EffectsModule.forRoot(),
     EffectsModule.forFeature(effects),
-    StoreRouterConnectingModule.forRoot({
-      serializer: CustomRouterStateSerializer,
-    }),
   ],
   providers: [MoviesService, fakeBackendProvider, MediaMatcher],
   entryComponents: [ConfirmationDialogComponent],

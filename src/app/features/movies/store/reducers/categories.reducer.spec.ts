@@ -6,19 +6,19 @@ import { categoriesState } from "../reducers";
 let initCategoriesState: categoriesState;
 let category: Category;
 
-describe("BooksReducer", () => {
+describe("CategoriesReducer", () => {
   beforeEach(() => {
-    (category = {
+    category = {
       id: 1,
       title: " Japanese anime",
       emoji: "👨‍👩‍👧‍👦",
       emojiStyle: "emoji-simple-swell",
-    }),
-      (initCategoriesState = {
-        categories: [],
-        loading: true,
-        error: "",
-      });
+    };
+    initCategoriesState = {
+      categories: [],
+      loading: true,
+      error: "",
+    };
   });
   describe("GET_CATEGORIES action", () => {
     it("should return the loading state ", () => {
