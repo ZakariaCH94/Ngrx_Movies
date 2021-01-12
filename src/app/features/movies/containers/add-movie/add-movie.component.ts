@@ -6,6 +6,7 @@ import { Category, Movie } from "../../models";
 import * as actionsType from "../../store/actions";
 import * as selectors from "../../store/selectors";
 import { MoviesService } from "../../services";
+
 @Component({
   selector: "app-add-movie",
   templateUrl: "./add-movie.component.html",
@@ -55,7 +56,8 @@ export class AddMovieComponent implements OnInit {
       selectors.getIsLoadingActionMovie
     );
   }
-  OnAddMovie(dataMovie: any) {
-    this.store.dispatch(actionsType.ADD_MOVIE({ movie: dataMovie.movie }));
+  OnAddMovie(movie: Movie) {
+    console.log(movie);
+    this.store.dispatch(actionsType.ADD_MOVIE({ movie: movie }));
   }
 }

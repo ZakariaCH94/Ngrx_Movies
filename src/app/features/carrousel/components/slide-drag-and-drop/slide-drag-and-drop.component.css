@@ -1,0 +1,73 @@
+.cursor {
+  cursor: move;
+}
+
+.example-box {
+  padding: 5px 3px 5px 3px;
+  border: solid 1px #ccc;
+  color: rgba(0, 0, 0, 0.87);
+  display: flex;
+  box-sizing: border-box;
+  font-size: 14px;
+  margin-bottom: 10px;
+  border: solid 1px #ccc;
+  color: rgba(0, 0, 0, 0.87);
+  box-sizing: border-box;
+  background: white;
+  cursor: pointer;
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px #3f51b5, 0 8px 10px 1px #3f51b5,
+    0 3px 14px 2px #3f51b5;
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 350ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.w-10 {
+  width: 10%;
+}
+
+.w-50 {
+  width: 20px;
+  height: 20px;
+}
+.w-100 {
+  width: 100%;
+}
+.drag-icon {
+  background-color: #3f51b5;
+  color: #fff;
+  text-align: center;
+  padding: 8px 4px 8px 0px;
+}
+
+.drag-content {
+  padding: 10px 0px 0px 10px;
+}
+
+.drag-index {
+  font-size: 16px;
+  font-weight: 500;
+  padding: 15px;
+}
+.alert-text {
+  color: #3f51b5;
+  font-weight: 600;
+  font-family: cursive;
+  font-size: 18px;
+  text-align: center;
+}
+
+.col-md-4 {
+  margin-left: 400px;
+  max-height: 80px;
+}

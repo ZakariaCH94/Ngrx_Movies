@@ -12,3 +12,8 @@ export const GET_PROFILES_ERROR = createAction(
   "[Profile] Get_Profiles_Error",
   props<{ error: string }>()
 );
+
+export const GET_PROFILES_SELECTED = createAction(
+  "[Profile] Get_Profiles_Selected",
+  props<{ profile: Profile }>()
+);

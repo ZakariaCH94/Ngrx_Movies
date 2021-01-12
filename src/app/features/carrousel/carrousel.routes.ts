@@ -1,5 +1,9 @@
 import { Routes } from "@angular/router";
-import { SlideListProfileComponent, TemplateComponent } from "./containers";
+import {
+  SlideListProfileComponent,
+  TemplateComponent,
+  AddSlideComponent,
+} from "./containers";
 
 export const routes: Routes = [
   {
@@ -9,6 +13,10 @@ export const routes: Routes = [
       {
         path: "",
         component: SlideListProfileComponent,
+      },
+      {
+        path: "add-slide",
+        component: AddSlideComponent,
       },
     ],
   },

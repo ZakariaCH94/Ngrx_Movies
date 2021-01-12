@@ -1,4 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy,
+} from "@angular/core";
 import { Movie } from "../../models";
 import { ConfirmationDialogComponent } from "../confirmation-dialog/confirmation-dialog.component";
 import { MatDialog } from "@angular/material/dialog";
@@ -7,6 +14,7 @@ import { MatDialog } from "@angular/material/dialog";
   selector: "app-movie-preview",
   templateUrl: "./movie-preview.component.html",
   styleUrls: ["./movie-preview.component.css"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MoviePreviewComponent implements OnInit {
   @Input() movie: Movie;

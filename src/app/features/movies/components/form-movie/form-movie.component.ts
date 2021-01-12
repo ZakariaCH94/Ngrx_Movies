@@ -113,6 +113,6 @@ export class FormMovieComponent implements OnInit, OnChanges {
     if (this.registerMovieForm.valid) {
       this.submitted = true;
     }
-    this.addMovie.emit({ movie: this.movieForm });
+    this.addMovie.emit(this.movieForm);
   }
 }

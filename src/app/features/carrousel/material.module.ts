@@ -17,7 +17,7 @@ import { MatListModule } from "@angular/material/list";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatGridListModule } from "@angular/material/grid-list";
 import { MatProgressButtonsModule } from "mat-progress-buttons";
-
+import { MatTooltipModule } from "@angular/material/tooltip";
 const MaterialModules = [
   MatIconModule,
   MatFormFieldModule,
@@ -37,6 +37,7 @@ const MaterialModules = [
   MatListModule,
   MatDividerModule,
   MatGridListModule,
+  MatTooltipModule,
 ];
 
 @NgModule({

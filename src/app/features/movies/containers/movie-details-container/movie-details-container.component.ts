@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { ElementsState } from "../../store/reducers";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
@@ -10,6 +10,7 @@ import * as actionsType from "../../store/actions";
   selector: "app-movie-details-container",
   templateUrl: "./movie-details-container.component.html",
   styleUrls: ["./movie-details-container.component.css"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieDetailsContainerComponent implements OnInit {
   movie$: Observable<Movie>;

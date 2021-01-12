@@ -5,7 +5,6 @@ import { CustomRouterStateSerializer } from "./router-store";
 import { StoreRouterConnectingModule } from "@ngrx/router-store";
 
 const storeRouter = [
-  StoreModule.forRoot({}),
   StoreModule.forFeature("router", routerReducers),
   StoreRouterConnectingModule.forRoot({
     serializer: CustomRouterStateSerializer,

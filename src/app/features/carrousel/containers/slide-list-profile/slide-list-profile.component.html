@@ -1,1 +1,37 @@
-<p>slide-list-profile works!</p>
+<div class="row">
+  <div class="col-md-2">
+    <ng-container *ngIf="!(isLoadingProfiles$ | async); else loaderProfiles">
+      <app-select
+        [profiles]="profiles$ | async"
+        [profileSelected]="profileSelected$ | async"
+        (selectedSlidesByProfile)="onSelectedSlidesByProfile($event.value)"
+      ></app-select>
+    </ng-container>
+  </div>
+</div>
+<div class="row">
+  <ng-container *ngIf="!(isLoadingSlides$ | async); else loaderSlides">
+    <app-slide-drag-and-drop
+      [slides]="slides$ | async"
+      [profileSelected]="profileSelected$ | async"
+      [profiles]="profiles$ | async"
+    ></app-slide-drag-and-drop>
+    <div *ngIf="!(profileSelected$ | async).id" class="col-md-6">
+      <div class="col-md-6">Choose Profile please !</div>
+    </div>
+  </ng-container>
+</div>
+<div class="row">
+  <ng-template #loaderProfiles>
+    <div class="col-md-2">
+      <mat-spinner color="primary" diameter="50"> </mat-spinner>
+    </div>
+  </ng-template>
+</div>
+<div class="row">
+  <ng-template #loaderSlides>
+    <div class="col-md-2">
+      <mat-spinner color="primary" diameter="70"> </mat-spinner>
+    </div>
+  </ng-template>
+</div>

@@ -61,6 +61,7 @@ import { SharedModule } from "../shared";
     HttpClientModule,
     MaterialModule,
     SharedModule,
+    StoreModule.forRoot({}),
     StoreModule.forFeature("elements", reducers),
     EffectsModule.forRoot(),
     EffectsModule.forFeature(effects),
