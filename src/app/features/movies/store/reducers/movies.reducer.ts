@@ -60,12 +60,11 @@ const reducerMovies = createReducer(
     return { ...state, currentMovie: movie, loadingActionMovie: true };
   }),
   on(moviesAction.UPDATE_MOVIE_SUCCESS, (state, { reply }) => {
-    const currentMovies: Movie[] = state.movies.map((movie) => {
-      if (movie.id === state.currentMovie.id) {
-        movie = state.currentMovie;
-      }
-      return movie;
-    });
+    const indexMovieUpdated = state.movies.findIndex(
+      (movie) => movie.id === state.currentMovie.id
+    );
+    let currentMovies: Movie[] = [...state.movies];
+    currentMovies[indexMovieUpdated] = state.currentMovie;
 
     return {
       ...state,

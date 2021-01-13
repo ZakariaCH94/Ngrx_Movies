@@ -5,7 +5,10 @@ import * as selectors from "../../store/selectors";
 import { Observable } from "rxjs";
 import { Profile, Slide } from "../../models";
 import * as actions from "../../store/actions";
-
+export interface dragAndDropData {
+  profile: Profile;
+  slides: Slide[];
+}
 @Component({
   selector: "app-slide-list-profile",
   templateUrl: "./slide-list-profile.component.html",
@@ -37,10 +40,22 @@ export class SlideListProfileComponent implements OnInit {
     this.profileSelected$ = this.store.select<Profile>(
       selectors.getProfileSelected
     );
+    this.profileSelected$.subscribe((data) => console.log(data));
+
+    this.profiles$.subscribe((data) => console.log(data));
   }
 
   onSelectedSlidesByProfile(profile: Profile) {
+    console.log(profile);
     this.store.dispatch(actions.GET_PROFILES_SELECTED({ profile: profile }));
-    //this.slides$ = this.store.select<Slide[]>(selectors.getSlidesByProfile);
+  }
+
+  onUpdateProfileAfterDragandDropSlides(data: dragAndDropData) {
+    console.log(data.profile);
+    data.profile = Object.assign({}, data.profile);
+    data.profile.idSlides = data.slides.map((slide) => slide.id).join();
+    this.store.dispatch(
+      actions.UPDATE_PROFILE_AFTER_DRAG_SLIDES({ profile: data.profile })
+    );
   }
 }

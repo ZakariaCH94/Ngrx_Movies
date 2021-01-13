@@ -103,8 +103,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       },
     ];
 
-    sessionStorage.setItem("profiles", JSON.stringify(profiles));
-    sessionStorage.setItem("slides", JSON.stringify(slides));
+    /*  sessionStorage.setItem("profiles", JSON.stringify(profiles));
+    sessionStorage.setItem("slides", JSON.stringify(slides)); */
   }
   intercept(
     request: HttpRequest<any>,
@@ -125,6 +125,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
           return getProfiles();
         case url.endsWith("/slides") && method === "GET":
           return getSlides();
+        case url.match(/\/profile\/\d+$/) && method === "PUT":
+          return updateProfileAfterDragSlides();
         /*         case url.endsWith("/movie") && method === "POST":
           return saveMovie();
         case url.match(/\/movie\/\d+$/) && method === "PUT":
@@ -143,11 +145,23 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     // route functions
 
     function getProfiles() {
+      console.log(profilesStorage);
       return ok(profilesStorage);
     }
 
     function getSlides() {
       return ok(slidesStorage);
+    }
+
+    function updateProfileAfterDragSlides() {
+      const profileUpdated: Profile = body;
+      const indexProfileUpdated = profilesStorage.findIndex(
+        (profile: Profile) => profile.id === profileUpdated.id
+      );
+      let currentProfiles: Profile[] = [...profilesStorage];
+      currentProfiles[indexProfileUpdated] = profileUpdated;
+      sessionStorage.setItem("profiles", JSON.stringify(currentProfiles));
+      return ok("profile  " + profileUpdated.name + "  successfully updated");
     }
 
     /* function saveMovie() {

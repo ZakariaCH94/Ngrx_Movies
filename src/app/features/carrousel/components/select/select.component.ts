@@ -1,4 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  OnChanges,
+} from "@angular/core";
 import { FormControl, Validators } from "@angular/forms";
 import { Profile } from "../../models";
 
@@ -7,7 +14,7 @@ import { Profile } from "../../models";
   templateUrl: "./select.component.html",
   styleUrls: ["./select.component.css"],
 })
-export class SelectComponent implements OnInit {
+export class SelectComponent implements OnInit, OnChanges {
   @Input() profiles: Profile[];
   @Input() profileSelected: Profile;
 
@@ -16,6 +23,13 @@ export class SelectComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
+    this.selected = new FormControl(this.profileSelected, [
+      Validators.required,
+    ]);
+  }
+  ngOnChanges() {
+    console.log(this.profileSelected);
+    console.log(this.profiles);
     this.selected = new FormControl(this.profileSelected, [
       Validators.required,
     ]);

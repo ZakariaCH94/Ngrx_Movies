@@ -20,13 +20,10 @@ export class SlidesEffect {
       ofType(slidesAction.GET_SLIDES),
       mergeMap(() =>
         this.carrouselService.getSlides().pipe(
-          map(
-            (slides: Slide[]) => (
-              console.log(slides),
-              slidesAction.GET_SLIDES_SUCCESS({
-                slides: slides,
-              })
-            )
+          map((slides: Slide[]) =>
+            slidesAction.GET_SLIDES_SUCCESS({
+              slides: slides,
+            })
           ),
           catchError((err) =>
             of(slidesAction.GET_PROFILES_ERROR({ error: err }))

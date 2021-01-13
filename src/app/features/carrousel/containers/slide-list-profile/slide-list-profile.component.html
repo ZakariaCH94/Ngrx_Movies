@@ -9,15 +9,22 @@
     </ng-container>
   </div>
 </div>
-<div class="row">
+<div class="row" *ngIf="slides$ | async as slides">
   <ng-container *ngIf="!(isLoadingSlides$ | async); else loaderSlides">
     <app-slide-drag-and-drop
-      [slides]="slides$ | async"
+      [slides]="slides"
       [profileSelected]="profileSelected$ | async"
       [profiles]="profiles$ | async"
+      (updateProfileAfterDragandDropSlides)="
+        onUpdateProfileAfterDragandDropSlides($event)
+      "
     ></app-slide-drag-and-drop>
-    <div *ngIf="!(profileSelected$ | async).id" class="col-md-6">
-      <div class="col-md-6">Choose Profile please !</div>
+    <div *ngIf="!(profileSelected$ | async).id">
+      <div class="alert">Choose Profile please !</div>
+    </div>
+    <div class="alert-text" *ngIf="slides?.length > 1">
+      Click <i class="material-icons" cdkDragHandle>reorder</i>
+      for drag your Slide.
     </div>
   </ng-container>
 </div>

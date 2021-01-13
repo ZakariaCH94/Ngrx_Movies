@@ -13,8 +13,9 @@ import { Observable, of, throwError } from "rxjs";
 import { delay, mergeMap, materialize, dematerialize } from "rxjs/operators";
 
 // array in local storage for registered users
-let categoriesStorage = JSON.parse(sessionStorage.getItem("categories")) || [];
-let moviesStorage = JSON.parse(sessionStorage.getItem("movies")) || [];
+let categoriesStorage: Category[] =
+  JSON.parse(sessionStorage.getItem("categories")) || [];
+let moviesStorage: Movie[] = JSON.parse(sessionStorage.getItem("movies")) || [];
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
@@ -244,8 +245,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         emojiStyle: "emoji-swell",
       },
     ];
-    sessionStorage.setItem("categories", JSON.stringify(categories));
-    sessionStorage.setItem("movies", JSON.stringify(movies));
+    /* sessionStorage.setItem("categories", JSON.stringify(categories));
+    sessionStorage.setItem("movies", JSON.stringify(movies)); */
   }
   intercept(
     request: HttpRequest<any>,
@@ -288,6 +289,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     }
 
     function getMovies() {
+      console.log(moviesStorage);
       return ok(moviesStorage);
     }
 
@@ -321,13 +323,14 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     }
 
     function updateMovie() {
-      const movieSaved = body;
-      moviesStorage = moviesStorage.filter(
-        (movie: Movie) => movie.id !== idFromUrl()
+      const movieUpdated: Movie = body;
+      const indexMovieUpdated = moviesStorage.findIndex(
+        (movie) => movie.id === movieUpdated.id
       );
-      moviesStorage.push(movieSaved);
-      sessionStorage.setItem("movies", JSON.stringify(moviesStorage));
-      return ok("movie  " + movieSaved.title + "  successfully updated");
+      let currentMovies: Movie[] = [...moviesStorage];
+      currentMovies[indexMovieUpdated] = movieUpdated;
+      sessionStorage.setItem("movies", JSON.stringify(currentMovies));
+      return ok("movie  " + movieUpdated.title + "  successfully updated");
     }
     function addMovieToMyCollection() {
       let currentMovie: Movie = moviesStorage.find(

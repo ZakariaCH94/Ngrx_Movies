@@ -35,4 +35,33 @@ export class ProfilesEffect {
       )
     )
   );
+
+  updateProfilesAfterDragSlides$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(profilesActions.UPDATE_PROFILE_AFTER_DRAG_SLIDES),
+      mergeMap((data) =>
+        this.carrouselService.updateProfileAfterDragSlides(data.profile).pipe(
+          map(
+            (reply: string) => (
+              this.snackBar.open(reply, undefined, {
+                duration: 5000,
+                horizontalPosition: "end",
+                verticalPosition: "bottom",
+              }),
+              profilesActions.UPDATE_PROFILE_AFTER_DRAG_SLIDES_SUCCESS({
+                reply: reply,
+              })
+            )
+          ),
+          catchError((err) =>
+            of(
+              profilesActions.UPDATE_PROFILE_AFTER_DRAG_SLIDES_ERROR({
+                error: err,
+              })
+            )
+          )
+        )
+      )
+    )
+  );
 }

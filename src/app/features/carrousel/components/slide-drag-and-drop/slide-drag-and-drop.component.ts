@@ -2,6 +2,8 @@ import {
   Component,
   OnInit,
   Input,
+  Output,
+  EventEmitter,
   ChangeDetectionStrategy,
 } from "@angular/core";
 import { Profile, Slide } from "../../models";
@@ -18,6 +20,8 @@ export class SlideDragAndDropComponent implements OnInit {
   @Input() slides: Slide[];
   @Input() profileSelected: Profile;
   @Input() profiles: Profile[];
+  @Output() updateProfileAfterDragandDropSlides = new EventEmitter();
+
   constructor() {}
 
   ngOnInit(): void {}
@@ -25,6 +29,9 @@ export class SlideDragAndDropComponent implements OnInit {
   drop(event: CdkDragDrop<Slide[]>) {
     this.slides = [...this.slides];
     moveItemInArray(this.slides, event.previousIndex, event.currentIndex);
-    console.log(this.slides);
+    this.updateProfileAfterDragandDropSlides.emit({
+      profile: this.profileSelected,
+      slides: this.slides,
+    });
   }
 }

@@ -7,6 +7,12 @@
     <div class="w-100 drag-content">
       <p>{{ slide.title }}</p>
     </div>
+    <div class="w-100 slide-on" *ngIf="slide.visible == true">
+      <mat-icon>visibility</mat-icon>visible to the internet user
+    </div>
+    <div class="w-100 slide-off" *ngIf="slide.visible == false">
+      <mat-icon>visibility_off</mat-icon>not visible to the Internet user
+    </div>
     <div>
       <img
         class="img-responsive"

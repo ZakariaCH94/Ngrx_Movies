@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
-/* import { Movie } from "../models";
- */ import { HttpClient } from "@angular/common/http";
-import { filter } from "rxjs/operators";
+import { Profile } from "../models";
+import { HttpClient } from "@angular/common/http";
 import { Router, NavigationEnd } from "@angular/router";
 /* import * as actionsType from "../store/actions";
 import { ElementsState } from "../store/reducers"; */
@@ -23,13 +22,17 @@ export class CarrouselService {
     return this.http.get("http://localhost:4200:/slides");
   }
 
+  updateProfileAfterDragSlides(profile: Profile) {
+    return this.http.put(
+      "http://localhost:4200:/profile/" + profile.id,
+      profile
+    );
+  }
+
   /* addMovie(movie: Movie) {
     return this.http.post("http://localhost:4200:/movie", movie);
   }
 
-  updateMovie(movie: Movie) {
-    return this.http.put("http://localhost:4200:/movie/" + movie.id, movie);
-  }
 
   deleteMovie(movieId: number) {
     return this.http.delete("http://localhost:4200:/movie/" + movieId);
