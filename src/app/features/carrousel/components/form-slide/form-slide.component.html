@@ -1,0 +1,83 @@
+<mat-toolbar class="form-element">
+  <span class="fill-remaining-space" *ngIf="action == 'add slide'"
+    >Add your slide</span
+  >
+  <span class="fill-remaining-space" *ngIf="action == 'update slide'"
+    >update your slide</span
+  >
+</mat-toolbar>
+<mat-card>
+  <form [formGroup]="registerSlideForm" (ngSubmit)="onSubmit()" class="form">
+    <mat-form-field class="form-element" appearance="outline">
+      <input matInput type="text" placeholder="Title" formControlName="title" />
+      <mat-error *ngIf="!f.title.valid && f.title.touched">
+        {{ titleAlert }} and must not exceed 100 characters</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field class="form-element" appearance="outline">
+      <textarea
+        style="min-height: 9em"
+        matInput
+        placeholder="description of slide"
+        formControlName="text"
+      ></textarea>
+      <mat-hint>give more details about the film</mat-hint>
+
+      <mat-error *ngIf="!f.text.valid && f.text.touched"
+        >{{ titleAlert }} and must not exceed 300 characters
+      </mat-error>
+    </mat-form-field>
+
+    <!--      <app-select-tab-object
+        [label]="labelCategory"
+        [options]="optionsCategories"
+        [valid]="f.category.valid"
+        [touched]="f.category.touched"
+        [registerForm]="registerMovieForm"
+        [control]="'category'"
+        [titleAlert]="titleAlert"
+      ></app-select-tab-object> -->
+
+    <mat-form-field class="form-element" appearance="outline">
+      <input
+        matInput
+        type="text"
+        placeholder="Link image"
+        formControlName="image"
+      />
+      <mat-hint>Link of image slide</mat-hint>
+      <mat-error *ngIf="!f.image.valid && f.image.touched"
+        >{{ titleAlert }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-element" appearance="outline">
+      <input
+        matInput
+        type="text"
+        placeholder="Link slide"
+        formControlName="link"
+      />
+      <mat-hint>Link of content slide</mat-hint>
+      <mat-error *ngIf="!f.link.valid && f.link.touched"
+        >{{ titleAlert }}
+      </mat-error>
+    </mat-form-field>
+    <div class="form-element" appearance="outline">
+      <mat-slide-toggle
+        formControlName="visible"
+        (change)="OnOf($event)"
+        class="example-margin"
+        [color]="'accent'"
+      >
+        {{ etatSlide }}
+      </mat-slide-toggle>
+    </div>
+    <div class="form-element">
+      <mat-bar-button
+        [options]="barButtonOptions"
+        [disabled]="!registerSlideForm.valid"
+      ></mat-bar-button>
+    </div>
+  </form>
+</mat-card>

@@ -29,6 +29,11 @@ export const getSlidesByProfile = createSelector(
   }
 );
 
+export const getIsLoadingActionSlide = createSelector(
+  getSlidesState,
+  reducer.getIsLoadingActionSlide
+);
+
 function getSlidesByIdProfile(profile: Profile, slides: Slide[]): Slide[] {
   let slidesAfterFilerByidProfile: Slide[] = [];
   let idSlidesByProfile: number[];

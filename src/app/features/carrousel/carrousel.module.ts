@@ -16,10 +16,16 @@ import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
 import { reducer } from "./store/reducers";
 import { effects } from "./store/effects";
-import { SelectComponent, SlideDragAndDropComponent } from "./components";
+import {
+  SelectComponent,
+  SlideDragAndDropComponent,
+  FormSlideComponent,
+  SelectMultipleComponent,
+} from "./components";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { DragDropModule } from "@angular/cdk/drag-drop";
 import { ProfileSlidesPipe } from "./pipes";
+
 @NgModule({
   declarations: [
     SlideListProfileComponent,
@@ -28,6 +34,8 @@ import { ProfileSlidesPipe } from "./pipes";
     SlideDragAndDropComponent,
     ProfileSlidesPipe,
     AddSlideComponent,
+    FormSlideComponent,
+    SelectMultipleComponent,
   ],
   imports: [
     CommonModule,

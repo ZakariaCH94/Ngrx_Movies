@@ -245,8 +245,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         emojiStyle: "emoji-swell",
       },
     ];
-    /* sessionStorage.setItem("categories", JSON.stringify(categories));
-    sessionStorage.setItem("movies", JSON.stringify(movies)); */
+    sessionStorage.setItem("categories", JSON.stringify(categories));
+    sessionStorage.setItem("movies", JSON.stringify(movies));
   }
   intercept(
     request: HttpRequest<any>,
@@ -323,14 +323,13 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     }
 
     function updateMovie() {
-      const movieUpdated: Movie = body;
-      const indexMovieUpdated = moviesStorage.findIndex(
-        (movie) => movie.id === movieUpdated.id
+      const movieSaved = body;
+      moviesStorage = moviesStorage.filter(
+        (movie: Movie) => movie.id !== idFromUrl()
       );
-      let currentMovies: Movie[] = [...moviesStorage];
-      currentMovies[indexMovieUpdated] = movieUpdated;
-      sessionStorage.setItem("movies", JSON.stringify(currentMovies));
-      return ok("movie  " + movieUpdated.title + "  successfully updated");
+      moviesStorage.push(movieSaved);
+      sessionStorage.setItem("movies", JSON.stringify(moviesStorage));
+      return ok("movie  " + movieSaved.title + "  successfully updated");
     }
     function addMovieToMyCollection() {
       let currentMovie: Movie = moviesStorage.find(

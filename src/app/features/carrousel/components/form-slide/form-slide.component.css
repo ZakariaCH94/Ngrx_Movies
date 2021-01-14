@@ -1,0 +1,23 @@
+p {
+  font-family: Lato;
+}
+
+.fill-remaining-space {
+  /* This fills the remaining space, by using flexbox. 
+         Every toolbar row uses a flexbox row layout. */
+  flex: 1 1 auto;
+}
+
+.form-element {
+  padding: 0px;
+  width: 75%;
+}
+
+/* Font color */
+input.mat-input-element {
+  color: rgb(10, 3, 17);
+}
+
+.example-margin {
+  margin: 10px;
+}

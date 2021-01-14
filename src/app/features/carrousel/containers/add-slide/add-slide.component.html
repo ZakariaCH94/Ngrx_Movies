@@ -1,1 +1,25 @@
-<p>add-slide works!</p>
+<div class="row">
+  <div class="col-md-offset-1">
+    <ng-container
+      *ngIf="
+        !(loadingProfiles$ | async) && !(loadingSlides$ | async);
+        else loader
+      "
+    >
+      <app-form-slide
+        [profiles]="profiles$ | async"
+        [slide]="slide"
+        [action]="'add slide'"
+        [loadingAddSlide]="loadingAddSlide$ | async"
+        (addSlide)="OnAddSlide($event)"
+      ></app-form-slide>
+    </ng-container>
+  </div>
+</div>
+<div class="row">
+  <ng-template #loader>
+    <div class="col-md-2 col-centered">
+      <mat-spinner color="primary" diameter="80"> </mat-spinner>
+    </div>
+  </ng-template>
+</div>

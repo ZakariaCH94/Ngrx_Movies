@@ -5,18 +5,18 @@ import * as slidesActions from "../../store/actions";
 export interface slidesState {
   slides: Slide[];
   currentSlide: Slide;
-  movieId: number;
-  loadingAllMovies: boolean;
-  loadingActionMovie: boolean;
+  slideId: number;
+  loadingAllSlides: boolean;
+  loadingActionSlide: boolean;
   error: string;
 }
 
 const initSlidesState: slidesState = {
   slides: [],
   currentSlide: null,
-  movieId: null,
-  loadingAllMovies: false,
-  loadingActionMovie: false,
+  slideId: null,
+  loadingAllSlides: false,
+  loadingActionSlide: false,
   error: "",
 };
 
@@ -24,16 +24,16 @@ const reducerSlides = createReducer(
   initSlidesState,
   on(slidesActions.GET_SLIDES, (state) => ({
     ...state,
-    loadingAllMovies: true,
+    loadingAllSlides: true,
   })),
   on(slidesActions.GET_SLIDES_SUCCESS, (state, { slides }) => ({
     ...state,
     slides: slides,
-    loadingAllMovies: false,
+    loadingAllSlides: false,
   })),
   on(slidesActions.GET_SLIDES_ERROR, (state, { error }) => ({
     ...state,
-    loadingAllMovies: false,
+    loadingAllSlides: false,
     error: error,
   }))
 );
@@ -44,5 +44,8 @@ export function slidesReducer(state: slidesState | undefined, action: Action) {
 
 export const getAllSlides = (state: slidesState): Slide[] => state.slides;
 export const getIsSlidesLoading = (state: slidesState): boolean =>
-  state.loadingAllMovies;
+  state.loadingAllSlides;
 export const getIsErrorLoadSlides = (state: slidesState): string => state.error;
+
+export const getIsLoadingActionSlide = (state: slidesState): boolean =>
+  state.loadingActionSlide;

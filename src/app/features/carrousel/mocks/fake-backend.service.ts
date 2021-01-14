@@ -102,9 +102,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         visible: false,
       },
     ];
-
-    /*  sessionStorage.setItem("profiles", JSON.stringify(profiles));
-    sessionStorage.setItem("slides", JSON.stringify(slides)); */
+    sessionStorage.setItem("profiles", JSON.stringify(profiles));
+    sessionStorage.setItem("slides", JSON.stringify(slides));
   }
   intercept(
     request: HttpRequest<any>,
@@ -145,7 +144,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     // route functions
 
     function getProfiles() {
-      console.log(profilesStorage);
+      console.log([...profilesStorage]);
       return ok(profilesStorage);
     }
 
@@ -155,12 +154,11 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
     function updateProfileAfterDragSlides() {
       const profileUpdated: Profile = body;
-      const indexProfileUpdated = profilesStorage.findIndex(
-        (profile: Profile) => profile.id === profileUpdated.id
+      profilesStorage = profilesStorage.filter(
+        (profile: Profile) => profile.id !== idFromUrl()
       );
-      let currentProfiles: Profile[] = [...profilesStorage];
-      currentProfiles[indexProfileUpdated] = profileUpdated;
-      sessionStorage.setItem("profiles", JSON.stringify(currentProfiles));
+      profilesStorage.push(profileUpdated);
+      sessionStorage.setItem("profiles", JSON.stringify(profilesStorage));
       return ok("profile  " + profileUpdated.name + "  successfully updated");
     }
 

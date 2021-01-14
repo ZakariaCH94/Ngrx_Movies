@@ -2,16 +2,18 @@ import { Injectable } from "@angular/core";
 import { Profile } from "../models";
 import { HttpClient } from "@angular/common/http";
 import { Router, NavigationEnd } from "@angular/router";
-/* import * as actionsType from "../store/actions";
-import { ElementsState } from "../store/reducers"; */
+import * as actionsType from "../store/actions";
+import { ElementsState } from "../store/reducers";
 import { Store } from "@ngrx/store";
+import { filter } from "rxjs/operators";
 @Injectable({
   providedIn: "root",
 })
 export class CarrouselService {
   constructor(
-    private http: HttpClient /*   private router: Router,
-    private store: Store<ElementsState> */
+    private http: HttpClient,
+    private router: Router,
+    private store: Store<ElementsState>
   ) {}
 
   getProfiles() {
@@ -41,14 +43,14 @@ export class CarrouselService {
     return this.http.post("http://localhost:4200:/movie/" + movieId, {});
   }
  */
-  /*   getCategoriesAndMoviesAfterRefreshPage() {
+  getProfilesAndSlidesAfterRefreshPage() {
     this.router.events
       .pipe(filter((rs): rs is NavigationEnd => rs instanceof NavigationEnd))
       .subscribe((event) => {
         if (event.id === 1 && event.url === event.urlAfterRedirects) {
-          this.store.dispatch(actionsType.GET_CATEGORIES());
-          this.store.dispatch(actionsType.GET_MOVIES());
+          this.store.dispatch(actionsType.GET_PROFILES());
+          this.store.dispatch(actionsType.GET_SLIDES());
         }
       });
-  } */
+  }
 }

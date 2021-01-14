@@ -18,6 +18,8 @@ import { MatDividerModule } from "@angular/material/divider";
 import { MatGridListModule } from "@angular/material/grid-list";
 import { MatProgressButtonsModule } from "mat-progress-buttons";
 import { MatTooltipModule } from "@angular/material/tooltip";
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+
 const MaterialModules = [
   MatIconModule,
   MatFormFieldModule,
@@ -38,6 +40,7 @@ const MaterialModules = [
   MatDividerModule,
   MatGridListModule,
   MatTooltipModule,
+  MatSlideToggleModule,
 ];
 
 @NgModule({
