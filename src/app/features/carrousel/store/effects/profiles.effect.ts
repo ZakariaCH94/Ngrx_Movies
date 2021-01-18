@@ -1,11 +1,13 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { of } from "rxjs";
-import { map, mergeMap, catchError, tap, withLatestFrom } from "rxjs/operators";
+import { map, mergeMap, catchError } from "rxjs/operators";
 import * as profilesActions from "../actions";
 import { CarrouselService } from "../../services/carrousel.service";
 import { Profile } from "../../models";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { Observable } from "rxjs";
+import { Action } from "@ngrx/store";
 
 @Injectable()
 export class ProfilesEffect {
@@ -15,7 +17,7 @@ export class ProfilesEffect {
     private snackBar: MatSnackBar
   ) {}
 
-  loadProfiles$ = createEffect(() =>
+  loadProfiles$: Observable<Action> = createEffect(() =>
     this.actions$.pipe(
       ofType(profilesActions.GET_PROFILES),
       mergeMap(() =>
@@ -29,18 +31,19 @@ export class ProfilesEffect {
             )
           ),
           catchError((err) =>
-            of(profilesActions.GET_PROFILES_ERROR({ error: err }))
+            of(profilesActions.GET_PROFILES_ERROR({ error: err.error.message }))
           )
         )
       )
     )
   );
 
-  updateProfilesAfterDragSlides$ = createEffect(() =>
+  updateProfilesAfterDragSlides$: Observable<Action> = createEffect(() =>
     this.actions$.pipe(
       ofType(profilesActions.UPDATE_PROFILE_AFTER_DRAG_SLIDES),
-      mergeMap((data) =>
-        this.carrouselService.updateProfileAfterDragSlides(data.profile).pipe(
+      map((data) => data.profile),
+      mergeMap((profile: Profile) =>
+        this.carrouselService.updateProfileAfterDragSlides(profile).pipe(
           map(
             (reply: string) => (
               this.snackBar.open(reply, undefined, {
@@ -56,7 +59,7 @@ export class ProfilesEffect {
           catchError((err) =>
             of(
               profilesActions.UPDATE_PROFILE_AFTER_DRAG_SLIDES_ERROR({
-                error: err,
+                error: err.error.message,
               })
             )
           )

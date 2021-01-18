@@ -37,6 +37,7 @@ export const getIsLoadingActionSlide = createSelector(
 function getSlidesByIdProfile(profile: Profile, slides: Slide[]): Slide[] {
   let slidesAfterFilerByidProfile: Slide[] = [];
   let idSlidesByProfile: number[];
+  console.log(profile);
   idSlidesByProfile = profile.idSlides.split(",").map((str) => parseInt(str));
 
   idSlidesByProfile.filter((idSlide) => {

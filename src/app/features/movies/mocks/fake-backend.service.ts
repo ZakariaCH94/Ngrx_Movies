@@ -340,23 +340,19 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         (movie: Movie) => movie.id !== currentMovie.id
       );
 
-      const currentMovieObject = Object.assign({}, currentMovie);
+      currentMovie = { ...currentMovie };
 
-      currentMovieObject.selected = !currentMovieObject.selected;
-      moviesStorage.push(currentMovieObject);
+      currentMovie.selected = !currentMovie.selected;
+      moviesStorage.push(currentMovie);
       sessionStorage.setItem("movies", JSON.stringify(moviesStorage));
 
-      if (currentMovieObject.selected == true) {
+      if (currentMovie.selected == true) {
         return ok(
-          "movie  " +
-            currentMovieObject.title +
-            "  successfully added to collection"
+          "movie  " + currentMovie.title + "  successfully added to collection"
         );
       } else
         return ok(
-          "movie  " +
-            currentMovieObject.title +
-            "  successfully remove to collection"
+          "movie  " + currentMovie.title + "  successfully remove to collection"
         );
     }
 
@@ -382,7 +378,6 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     }
 
     function error(message) {
-      console.log(error);
       return throwError({ error: { message } });
     }
 

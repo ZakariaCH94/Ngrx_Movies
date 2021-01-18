@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { of } from "rxjs";
+import { Action } from "@ngrx/store";
+
+import { of, Observable } from "rxjs";
 import { map, mergeMap, catchError } from "rxjs/operators";
 import * as categoriesActions from "../actions";
 import { MoviesService } from "../../services/movies.service";
@@ -12,7 +14,7 @@ export class CategoriesEffect {
     private moviesService: MoviesService
   ) {}
 
-  loadCategories$ = createEffect(() =>
+  loadCategories$: Observable<Action> = createEffect(() =>
     this.actions$.pipe(
       ofType(categoriesActions.GET_CATEGORIES),
       mergeMap(() =>
@@ -26,7 +28,11 @@ export class CategoriesEffect {
             )
           ),
           catchError((err) =>
-            of(categoriesActions.GET_CATEGORIES_ERROR({ error: err }))
+            of(
+              categoriesActions.GET_CATEGORIES_ERROR({
+                error: err.error.message,
+              })
+            )
           )
         )
       )

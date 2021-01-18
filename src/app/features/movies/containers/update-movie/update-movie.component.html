@@ -9,7 +9,7 @@
       <app-form-movie
         [optionsCategories]="optionsCategories$ | async"
         [movie]="movie$ | async"
-        (addMovie)="OnAddMovie($event)"
+        (addMovie)="onUpdateMovie($event)"
         [loadingAddMovie]="loadingUpdateMovie$ | async"
         [action]="'update movie'"
       ></app-form-movie>

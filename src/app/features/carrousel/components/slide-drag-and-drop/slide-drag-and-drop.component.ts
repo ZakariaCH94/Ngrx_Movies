@@ -24,7 +24,9 @@ export class SlideDragAndDropComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.profileSelected);
+  }
 
   drop(event: CdkDragDrop<Slide[]>) {
     this.slides = [...this.slides];

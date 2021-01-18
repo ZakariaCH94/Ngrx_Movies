@@ -43,7 +43,7 @@ export class UpdateMovieComponent implements OnInit {
     );
   }
 
-  OnAddMovie(movie: Movie) {
+  onUpdateMovie(movie: Movie) {
     this.store.dispatch(actionsType.UPDATE_MOVIE({ movie: movie }));
   }
 }

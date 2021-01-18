@@ -35,7 +35,29 @@ const reducerSlides = createReducer(
     ...state,
     loadingAllSlides: false,
     error: error,
-  }))
+  })),
+  on(slidesActions.ADD_SLIDE_AND_UPDATE_PROFILE, (state) => {
+    return {
+      ...state,
+      loadingActionSlide: true,
+    };
+  }),
+  on(slidesActions.ADD_SLIDE_SUCCESS, (state, { slide }) => {
+    let currentSlides = [...state.slides];
+    currentSlides.push(slide);
+    return {
+      ...state,
+      slides: currentSlides,
+      loadingActionSlide: false,
+    };
+  }),
+  on(slidesActions.ADD_SLIDE_ERROR, (state, { error }) => {
+    return {
+      ...state,
+      loadingActionSlide: false,
+      error: error,
+    };
+  })
 );
 
 export function slidesReducer(state: slidesState | undefined, action: Action) {

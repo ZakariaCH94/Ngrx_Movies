@@ -5,6 +5,7 @@ import {
   Output,
   EventEmitter,
   OnChanges,
+  ChangeDetectionStrategy,
 } from "@angular/core";
 import { FormControl, Validators } from "@angular/forms";
 import { Profile } from "../../models";
@@ -13,6 +14,7 @@ import { Profile } from "../../models";
   selector: "app-select",
   templateUrl: "./select.component.html",
   styleUrls: ["./select.component.css"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectComponent implements OnInit, OnChanges {
   @Input() profiles: Profile[];
@@ -28,8 +30,6 @@ export class SelectComponent implements OnInit, OnChanges {
     ]);
   }
   ngOnChanges() {
-    console.log(this.profileSelected);
-    console.log(this.profiles);
     this.selected = new FormControl(this.profileSelected, [
       Validators.required,
     ]);

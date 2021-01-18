@@ -18,15 +18,17 @@ import { MatProgressButtonOptions } from "mat-progress-buttons";
 })
 export class FormSlideComponent implements OnInit, OnChanges {
   submitted: boolean = false;
-  etatSlide: String = "slide activated";
+  etatSlide: String = "slide disabled";
 
   @Input() action: string = "";
   @Input() profiles: Profile[];
+  @Input() profilesSelected: Profile[];
   @Input() loadingAddSlide: boolean = false;
   @Output() addSlide = new EventEmitter();
   @Input() slide: Slide;
   title: string = null;
   slideForm: Slide;
+  profilesSelectedForm: Profile[];
   registerSlideForm: FormGroup;
   barButtonOptions: MatProgressButtonOptions = {
     active: this.loadingAddSlide,
@@ -51,7 +53,18 @@ export class FormSlideComponent implements OnInit, OnChanges {
     this.createForm();
   }
   ngOnChanges() {
+    this.barButtonOptions.active = this.loadingAddSlide;
     this.barButtonOptions.text = this.action;
+    if (this.submitted == true) {
+      if (this.action == "add slide") {
+        this.barButtonOptions.text = "Saving slide ...";
+      } else {
+        this.barButtonOptions.text = "Updating slide ...";
+      }
+    }
+    if (this.loadingAddSlide == false) {
+      this.barButtonOptions.text = this.action;
+    }
   }
   createForm() {
     this.registerSlideForm = this.formBuilder.group({
@@ -60,6 +73,7 @@ export class FormSlideComponent implements OnInit, OnChanges {
         [Validators.required, Validators.maxLength(100)],
       ],
       text: [this.slide.text, [Validators.required, Validators.maxLength(300)]],
+      profiles: [null, Validators.required],
       image: [this.slide.image, Validators.required],
       link: [this.slide.link, Validators.required],
       visible: [this.slide.visible],
@@ -69,17 +83,29 @@ export class FormSlideComponent implements OnInit, OnChanges {
     return this.registerSlideForm.controls;
   }
 
-  OnOf(event) {
-    console.log("aaa");
+  OnOf() {
     if (this.registerSlideForm.value["visible"] == false) {
-      this.etatSlide = "slide activated";
+      this.etatSlide = "slide disabled";
     }
     if (this.registerSlideForm.value["visible"] == true) {
-      this.etatSlide = "slide disabled";
+      this.etatSlide = "slide activated";
     }
   }
 
   onSubmit() {
-    console.log(this.registerSlideForm);
+    this.slideForm = {
+      id: this.slide.id,
+      title: this.registerSlideForm.value["title"],
+      text: this.registerSlideForm.value["text"],
+      image: this.registerSlideForm.value["image"],
+      link: this.registerSlideForm.value["link"],
+      visible: this.registerSlideForm.value["visible"],
+    };
+
+    this.profilesSelectedForm = this.registerSlideForm.value["profiles"];
+    this.addSlide.emit({
+      slide: this.slideForm,
+      profiles: this.profilesSelectedForm,
+    });
   }
 }

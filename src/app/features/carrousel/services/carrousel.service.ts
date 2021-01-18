@@ -6,6 +6,11 @@ import * as actionsType from "../store/actions";
 import { ElementsState } from "../store/reducers";
 import { Store } from "@ngrx/store";
 import { filter } from "rxjs/operators";
+import { Slide } from "../models";
+interface SlideDto {
+  slide: Slide;
+  idProfiles: string;
+}
 @Injectable({
   providedIn: "root",
 })
@@ -31,10 +36,15 @@ export class CarrouselService {
     );
   }
 
-  /* addMovie(movie: Movie) {
-    return this.http.post("http://localhost:4200:/movie", movie);
+  addSlide(slide: Slide, idProfiles: string) {
+    const slideDto: SlideDto = {
+      slide: slide,
+      idProfiles: idProfiles,
+    };
+    console.log(slideDto);
+    return this.http.post("http://localhost:4200:/slide", slideDto);
   }
-
+  /*
 
   deleteMovie(movieId: number) {
     return this.http.delete("http://localhost:4200:/movie/" + movieId);

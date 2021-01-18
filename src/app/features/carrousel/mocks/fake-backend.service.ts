@@ -126,6 +126,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
           return getSlides();
         case url.match(/\/profile\/\d+$/) && method === "PUT":
           return updateProfileAfterDragSlides();
+        case url.endsWith("/slide") && method === "POST":
+          return saveSlide();
         /*         case url.endsWith("/movie") && method === "POST":
           return saveMovie();
         case url.match(/\/movie\/\d+$/) && method === "PUT":
@@ -144,7 +146,6 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     // route functions
 
     function getProfiles() {
-      console.log([...profilesStorage]);
       return ok(profilesStorage);
     }
 
@@ -155,42 +156,54 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     function updateProfileAfterDragSlides() {
       const profileUpdated: Profile = body;
       profilesStorage = profilesStorage.filter(
-        (profile: Profile) => profile.id !== idFromUrl()
+        (profile: Profile) => profile.id !== idSlideFromUrl()
       );
       profilesStorage.push(profileUpdated);
       sessionStorage.setItem("profiles", JSON.stringify(profilesStorage));
       return ok("profile  " + profileUpdated.name + "  successfully updated");
     }
 
-    /* function saveMovie() {
-      console.log(body);
-      const movieSaved: Movie = {
+    function saveSlide() {
+      const slideSaved: Slide = {
         id: Math.floor(Math.random() * 1000),
-        categoryId: body.categoryId,
-        title: body.title,
-        language: body.language,
-        recordedYear: body.recordedYear,
-        image: body.image,
-        specialMention: {
-          lastName: body.specialMention.lastName,
-          firstName: body.specialMention.firstName,
-        },
-        description: body.description,
-        selected: body.selected,
+        title: body.slide.title,
+        text: body.slide.text,
+        link: body.slide.link,
+        image: body.slide.image,
+        visible: body.slide.visible,
       };
 
       if (
-        moviesStorage.find((movie: Movie) => movie.title === movieSaved.title)
+        slidesStorage.find((slide: Slide) => slide.title === slideSaved.title)
       ) {
-        return error("movie  " + movieSaved.title + "  is already taken");
+        return error("slide  " + slideSaved.title + "  is already taken");
       }
-      moviesStorage = [...moviesStorage];
-      moviesStorage.push(movieSaved);
-      sessionStorage.setItem("movies", JSON.stringify(moviesStorage));
 
-      return ok(movieSaved);
+      slidesStorage = [...slidesStorage];
+      slidesStorage.push(slideSaved);
+      sessionStorage.setItem("slides", JSON.stringify(slidesStorage));
+      const idSlide = slideSaved.id;
+
+      const idProfilesSelected = body.idProfiles.split(",").map((x) => +x);
+
+      profilesStorage = [...profilesStorage];
+      idProfilesSelected.filter((idProfile: number) => {
+        const profileIndex: number = profilesStorage.findIndex(
+          (profile) => profile.id === idProfile
+        );
+
+        profilesStorage[profileIndex] = {
+          ...profilesStorage[profileIndex],
+        };
+        profilesStorage[profileIndex].idSlides =
+          profilesStorage[profileIndex].idSlides + "," + idSlide;
+      });
+      sessionStorage.removeItem("profiles");
+      sessionStorage.setItem("profiles", JSON.stringify(profilesStorage));
+
+      return ok(slideSaved);
     }
-
+    /*
     function updateMovie() {
       const movieSaved = body;
       moviesStorage = moviesStorage.filter(
@@ -251,11 +264,10 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     }
 
     function error(message) {
-      console.log(error);
       return throwError({ error: { message } });
     }
 
-    function idFromUrl() {
+    function idSlideFromUrl() {
       const urlParts = url.split("/");
       return parseInt(urlParts[urlParts.length - 1]);
     }

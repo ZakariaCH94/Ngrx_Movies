@@ -1,21 +1,26 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { ElementsState } from "../../store/reducers";
 import { Store } from "@ngrx/store";
-import { Observable, Subscription } from "rxjs";
+import { Observable } from "rxjs";
 import { Profile, Slide } from "../../models";
 import * as actionsType from "../../store/actions";
 import * as selectors from "../../store/selectors";
 import { CarrouselService } from "../../services";
-
+interface data {
+  slide: Slide;
+  profiles: Profile[];
+}
 @Component({
   selector: "app-add-slide",
   templateUrl: "./add-slide.component.html",
   styleUrls: ["./add-slide.component.css"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddSlideComponent implements OnInit {
   loadingProfiles$: Observable<boolean>;
   loadingSlides$: Observable<boolean>;
   profiles$: Observable<Profile[]>;
+  profilesSelected$: Observable<Profile[]>;
   loadingAddSlide$: Observable<Boolean>;
   slide: Slide = {
     id: undefined,
@@ -43,7 +48,19 @@ export class AddSlideComponent implements OnInit {
     this.loadingAddSlide$ = this.store.select<Boolean>(
       selectors.getIsLoadingActionSlide
     );
+    this.profilesSelected$ = this.store.select(selectors.getProfilesSelected);
   }
 
-  OnAddSlide($event) {}
+  OnAddSlide(data: data) {
+    const idProfiles: string = data.profiles
+      .map((profile) => profile.id)
+      .join();
+
+    this.store.dispatch(
+      actionsType.ADD_SLIDE_AND_UPDATE_PROFILE({
+        slide: data.slide,
+        idProfiles: idProfiles,
+      })
+    );
+  }
 }

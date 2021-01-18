@@ -99,17 +99,17 @@ const reducerMovies = createReducer(
   on(
     moviesAction.ADD_OR_DELETE_MOVIE_COLLECTION_SUCCESS,
     (state, { reply }) => {
-      const currentMovie: Movie = state.movies.find(
+      let currentMovie: Movie = state.movies.find(
         (movie: Movie) => movie.id == state.movieId
       );
 
-      const currentMovieObject = Object.assign({}, currentMovie);
+      currentMovie = { ...currentMovie };
 
-      currentMovieObject.selected = !currentMovieObject.selected;
+      currentMovie.selected = !currentMovie.selected;
 
       const currentMovies: Movie[] = state.movies.map((movie) => {
-        if (movie.id === currentMovieObject.id) {
-          movie = currentMovieObject;
+        if (movie.id === currentMovie.id) {
+          movie = currentMovie;
         }
         return movie;
       });

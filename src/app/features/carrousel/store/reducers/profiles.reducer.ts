@@ -1,10 +1,12 @@
 import { Profile } from "../../models";
 import { Action, createReducer, on } from "@ngrx/store";
 import * as profilesAction from "../actions";
+import { state } from "@angular/animations";
 
 export interface profilesState {
   profiles: Profile[];
   profileSelected: Profile;
+  idProfilesSelected: string;
   currentProfile: Profile;
   loadingAllProfile: boolean;
   loadingAction: boolean;
@@ -18,6 +20,7 @@ const initProfilesState: profilesState = {
     name: "",
     idSlides: "",
   },
+  idProfilesSelected: "",
   currentProfile: null,
   loadingAllProfile: false,
   loadingAction: false,
@@ -54,7 +57,6 @@ const reducerProfiles = createReducer(
       );
       let currentProfiles: Profile[] = [...state.profiles];
       currentProfiles[indexProfileUpdated] = state.currentProfile;
-      console.log(currentProfiles);
 
       return {
         ...state,
@@ -72,6 +74,40 @@ const reducerProfiles = createReducer(
       error: error,
       loadingAction: false,
     })
+  ),
+  on(profilesAction.ADD_SLIDE_AND_UPDATE_PROFILE, (state, { idProfiles }) => {
+    return {
+      ...state,
+      idProfilesSelected: idProfiles,
+    };
+  }),
+  on(
+    profilesAction.UPDATE_PROFILE_AFTER_ADD_SLIDE_SUCCESS,
+    (state, { idSlide }) => {
+      let newStateProfileSelected: Profile = state.profileSelected;
+
+      const idProfilesSelected: number[] = state.idProfilesSelected
+        .split(",")
+        .map((idString) => parseInt(idString));
+      let currentProfiles = [...state.profiles];
+      idProfilesSelected.filter((idProfile) => {
+        const profileIndex: number = currentProfiles.findIndex(
+          (profile) => profile.id === idProfile
+        );
+        currentProfiles[profileIndex] = { ...currentProfiles[profileIndex] };
+        currentProfiles[profileIndex].idSlides =
+          currentProfiles[profileIndex].idSlides + "," + idSlide;
+        if (currentProfiles[profileIndex].id === state.profileSelected.id) {
+          newStateProfileSelected = currentProfiles[profileIndex];
+        }
+      });
+
+      return {
+        ...state,
+        profiles: currentProfiles,
+        profileSelected: newStateProfileSelected,
+      };
+    }
   )
 );
 
@@ -92,3 +128,6 @@ export const getIsErrorLoadProfiles = (state: profilesState): string =>
 
 export const getProfileSelected = (state: profilesState): Profile =>
   state.profileSelected;
+
+export const getIdProfileSelected = (state: profilesState): string =>
+  state.idProfilesSelected;

@@ -1,7 +1,9 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { of } from "rxjs";
-import { map, mergeMap, catchError, tap, withLatestFrom } from "rxjs/operators";
+import { Action } from "@ngrx/store";
+
+import { Observable, of } from "rxjs";
+import { map, mergeMap, catchError } from "rxjs/operators";
 import * as moviesActions from "../actions";
 import { MoviesService } from "../../services/movies.service";
 import { Movie } from "../../models";
@@ -15,7 +17,7 @@ export class MoviesEffect {
     private snackBar: MatSnackBar
   ) {}
 
-  loadMovies$ = createEffect(() =>
+  loadMovies$: Observable<Action> = createEffect(() =>
     this.actions$.pipe(
       ofType(moviesActions.GET_MOVIES),
       mergeMap(() =>
@@ -29,14 +31,14 @@ export class MoviesEffect {
             )
           ),
           catchError((err) =>
-            of(moviesActions.GET_MOVIES_ERROR({ error: err }))
+            of(moviesActions.GET_MOVIES_ERROR({ error: err.error.message }))
           )
         )
       )
     )
   );
 
-  addMovies$ = createEffect(() =>
+  addMovies$: Observable<Action> = createEffect(() =>
     this.actions$.pipe(
       ofType(moviesActions.ADD_MOVIE),
       mergeMap(
@@ -68,7 +70,7 @@ export class MoviesEffect {
                   horizontalPosition: "end",
                   verticalPosition: "bottom",
                 }),
-                of(moviesActions.ADD_MOVIE_ERROR({ error: err }))
+                of(moviesActions.ADD_MOVIE_ERROR({ error: err.error.message }))
               )
             )
           )
@@ -77,7 +79,7 @@ export class MoviesEffect {
     )
   );
 
-  updateMovies$ = createEffect(() =>
+  updateMovies$: Observable<Action> = createEffect(() =>
     this.actions$.pipe(
       ofType(moviesActions.UPDATE_MOVIE),
       mergeMap(
@@ -105,7 +107,9 @@ export class MoviesEffect {
                   horizontalPosition: "end",
                   verticalPosition: "bottom",
                 }),
-                of(moviesActions.UPDATE_MOVIE_ERROR({ error: err }))
+                of(
+                  moviesActions.UPDATE_MOVIE_ERROR({ error: err.error.message })
+                )
               )
             )
           )
@@ -114,7 +118,7 @@ export class MoviesEffect {
     )
   );
 
-  deleteMovies$ = createEffect(() =>
+  deleteMovies$: Observable<Action> = createEffect(() =>
     this.actions$.pipe(
       ofType(moviesActions.DELETE_MOVIE),
       mergeMap((data) =>
@@ -140,14 +144,14 @@ export class MoviesEffect {
                 horizontalPosition: "end",
                 verticalPosition: "bottom",
               }),
-              of(moviesActions.DELETE_MOVIE_ERROR({ error: err }))
+              of(moviesActions.DELETE_MOVIE_ERROR({ error: err.error.message }))
             )
           )
         )
       )
     )
   );
-  addMovieToMyCollection$ = createEffect(() =>
+  addMovieToMyCollection$: Observable<Action> = createEffect(() =>
     this.actions$.pipe(
       ofType(moviesActions.ADD_OR_DELETE_MOVIE_COLLECTION),
       mergeMap(
@@ -177,7 +181,7 @@ export class MoviesEffect {
                 }),
                 of(
                   moviesActions.ADD_OR_DELETE_MOVIE_COLLECTION_ERROR({
-                    error: err,
+                    error: err.error.message,
                   })
                 )
               )

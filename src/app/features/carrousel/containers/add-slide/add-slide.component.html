@@ -8,6 +8,7 @@
     >
       <app-form-slide
         [profiles]="profiles$ | async"
+        [profilesSelected]="profilesSelected$ | async"
         [slide]="slide"
         [action]="'add slide'"
         [loadingAddSlide]="loadingAddSlide$ | async"

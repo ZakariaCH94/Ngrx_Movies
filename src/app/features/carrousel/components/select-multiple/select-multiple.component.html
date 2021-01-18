@@ -1,1 +1,13 @@
-<p>select-multiple works!</p>
+<mat-form-field
+  [formGroup]="registerForm"
+  class="form-element"
+  appearance="outline"
+>
+  <mat-label>{{ label }}</mat-label>
+  <mat-select [formControlName]="control" multiple>
+    <mat-option *ngFor="let profile of profiles" [value]="profile">{{
+      profile.name
+    }}</mat-option>
+  </mat-select>
+  <mat-error *ngIf="!valid && touched">{{ titleAlert }}</mat-error>
+</mat-form-field>

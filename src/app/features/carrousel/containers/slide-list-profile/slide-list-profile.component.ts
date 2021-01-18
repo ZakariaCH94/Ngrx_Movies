@@ -43,16 +43,17 @@ export class SlideListProfileComponent implements OnInit {
     this.profileSelected$.subscribe((data) => console.log(data));
 
     this.profiles$.subscribe((data) => console.log(data));
+    this.store
+      .select(selectors.getProfilesSelected)
+      .subscribe((data) => console.log(data));
   }
 
   onSelectedSlidesByProfile(profile: Profile) {
-    console.log(profile);
     this.store.dispatch(actions.GET_PROFILES_SELECTED({ profile: profile }));
   }
 
   onUpdateProfileAfterDragandDropSlides(data: dragAndDropData) {
-    console.log(data.profile);
-    data.profile = Object.assign({}, data.profile);
+    data.profile = { ...data.profile };
     data.profile.idSlides = data.slides.map((slide) => slide.id).join();
     this.store.dispatch(
       actions.UPDATE_PROFILE_AFTER_DRAG_SLIDES({ profile: data.profile })

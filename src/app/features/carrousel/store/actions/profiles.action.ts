@@ -19,16 +19,21 @@ export const GET_PROFILES_SELECTED = createAction(
 );
 
 export const UPDATE_PROFILE_AFTER_DRAG_SLIDES = createAction(
-  "[SLIDE] Update_Profile_After_Drag_Slides",
+  "[Profile] Update_Profile_After_Drag_Slides",
   props<{ profile: Profile }>()
 );
 
 export const UPDATE_PROFILE_AFTER_DRAG_SLIDES_SUCCESS = createAction(
-  "[Slide] Update_Profile_After_Drag_Slides_Success",
+  "[Profile] Update_Profile_After_Drag_Slides_Success",
   props<{ reply: string }>()
 );
 
 export const UPDATE_PROFILE_AFTER_DRAG_SLIDES_ERROR = createAction(
-  "[Slide] Update_Profile_After_Drag_Slides_Error",
+  "[Profile] Update_Profile_After_Drag_Slides_Error",
   props<{ error: string }>()
+);
+
+export const UPDATE_PROFILE_AFTER_ADD_SLIDE_SUCCESS = createAction(
+  "[Profile] Update_Profile_After_Add_Slide_Success",
+  props<{ idSlide: number }>()
 );

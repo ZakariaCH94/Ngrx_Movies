@@ -42,11 +42,10 @@ const reducerCategories = createReducer(
 
 const reducerSearch = createReducer(
   initSearchState,
-  on(categoriesAction.GET_SEARCH, (state, { searchValue }) =>
-    newStateSearch(state, {
-      serachValue: searchValue,
-    })
-  )
+  on(categoriesAction.GET_SEARCH, (state, { searchValue }) => ({
+    ...state,
+    serachValue: searchValue,
+  }))
 );
 
 export function categoriesReducer(
