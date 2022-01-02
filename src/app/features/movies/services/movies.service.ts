@@ -38,7 +38,7 @@ export class MoviesService {
   addMovieToMyCollection(movieId: number) {
     return this.http.post("http://localhost:4200:/movie/" + movieId, {});
   }
-
+/**
   getCategoriesAndMoviesAfterRefreshPage() {
     this.router.events
       .pipe(filter((rs): rs is NavigationEnd => rs instanceof NavigationEnd))
@@ -49,4 +49,5 @@ export class MoviesService {
         }
       });
   }
+  **/
 }
